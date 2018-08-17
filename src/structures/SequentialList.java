@@ -18,25 +18,30 @@ public class SequentialList<T> implements Operations {
     }
     
     @Override
-    public boolean isEmpty() {
+    public boolean isEmpty(){
         return (size == 0);
     }
 
     @Override
-    public boolean isFull() {
+    public boolean isFull(){
         return (size == max_size);
     }
 
     @Override
-    public int getSize() {
+    public int getSize(){
         return size;
     }
 
+    @Override
+    public int getMaxSize(){
+        return max_size;
+    }
+    
     private boolean isValidPosition(int position){
         return (position >= 1 && position <= size + 1);
     }
     
-    public int setValueAtPosition(int position, T value) {
+    public int setValueAtPosition(int position, T value){
         if(isFull()){
             return 0;
         } else if(!isValidPosition(position)){
@@ -58,12 +63,12 @@ public class SequentialList<T> implements Operations {
     }
 
     @Override
-    public T getValueAtPosition(int position) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public T getValueAtPosition(int position){
+        return data[position-1];
     }
 
     @Override
-    public T remove(int position) {
+    public T remove(int position){
         if(isEmpty() || !isValidPosition(position)){
             return null;
         } else {           

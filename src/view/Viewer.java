@@ -47,11 +47,11 @@ public class Viewer extends JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
         );
 
         pack();
@@ -60,13 +60,12 @@ public class Viewer extends JFrame {
     private void loadPanel(){
         switch(title){
             case "Sequential List Viewer":
-                contentPanel.add(new SequentialList());               
+                contentPanel.add(new SequentialListViewer());   
                 break;
             default:
                 break;
         }
         contentPanel.revalidate();
-        setSize(contentPanel.getPreferredSize()); 
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

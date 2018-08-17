@@ -5,7 +5,11 @@
  */
 package view;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JFrame;
 import javax.swing.SwingConstants;
 
@@ -20,6 +24,7 @@ public class Launcher extends JFrame {
      */
     public Launcher() {
         initComponents();
+        //epilepsy();
     }
 
     /**
@@ -151,33 +156,25 @@ public class Launcher extends JFrame {
     }//GEN-LAST:event_btSeqListActionPerformed
 
     private void btLinkedListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLinkedListActionPerformed
-        // TODO add your handling code here:
+        new Viewer("Linked List").setVisible(true);
+        dispose();
     }//GEN-LAST:event_btLinkedListActionPerformed
 
+    private void epilepsy(){
+        Random rand = new Random();
+        new Timer().scheduleAtFixedRate(new TimerTask(){          
+            @Override
+            public void run(){           
+                contentPanel.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                revalidate();
+            }
+        }, 0, 1000);
+    }
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Launcher.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        
-        //</editor-fold>
-
-        /* Create and display the form */
         EventQueue.invokeLater(() -> {
             new Launcher().setVisible(true);
         });

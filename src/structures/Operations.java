@@ -8,6 +8,8 @@ public interface Operations {
     
     public int getSize();
     
+    public int getMaxSize();
+    
     //public int setValueAtPosition(int position, Object value);
     
     public Object getValueAtPosition(int position);
