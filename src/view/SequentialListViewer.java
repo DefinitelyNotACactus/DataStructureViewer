@@ -5,7 +5,7 @@
  */
 package view;
 
-import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import structures.SequentialList;
@@ -38,7 +38,7 @@ public class SequentialListViewer extends JPanel {
         btAdd = new javax.swing.JButton();
         btRemove = new javax.swing.JButton();
         btSearch = new javax.swing.JButton();
-        scrollPane = new javax.swing.JScrollPane();
+        scrollPane = new JScrollPane();
         statusLabel = new javax.swing.JLabel();
 
         btCreate.setText("Create List");
@@ -55,6 +55,8 @@ public class SequentialListViewer extends JPanel {
         btSave.setToolTipText("");
         btSave.setEnabled(false);
 
+        listPanel.setMaximumSize(new java.awt.Dimension(32767, 32767));
+        listPanel.setPreferredSize(new java.awt.Dimension(100, 100));
         listPanel.setLayout(new javax.swing.BoxLayout(listPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         optionsPanel.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
@@ -72,19 +74,21 @@ public class SequentialListViewer extends JPanel {
         btSearch.setText("Search");
         operationsPanel.add(btSearch);
 
+        scrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+
         statusLabel.setText("Empty");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(optionsPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(operationsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(scrollPane)
-                    .addComponent(statusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(optionsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(operationsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+                    .addComponent(statusLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -124,14 +128,10 @@ public class SequentialListViewer extends JPanel {
    
     private void listElements(){
         for(int i = 0; i < list.getMaxSize(); i++){
-            JPanel panel = new JPanel();
-            panel.add(new JLabel("" + i));
-            panel.revalidate();
-            scrollPane.add(panel);
-            System.out.printf("%d", list.getValueAtPosition(i+1));
-        }
+            listPanel.add(new Element("" + i));
+        }     
+        scrollPane.getViewport().add(listPanel);
         scrollPane.revalidate();
-        revalidate();
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
