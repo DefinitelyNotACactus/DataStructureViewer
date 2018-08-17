@@ -10,9 +10,11 @@ public interface Operations {
     
     public int getMaxSize();
     
-    //public int setValueAtPosition(int position, Object value);
+    //public boolean setValueAtPosition(int position, Object value);
     
     public Object getValueAtPosition(int position);
+    
+    //public int getPositionByValue(Object value);
     
     public Object remove(int position);
 }

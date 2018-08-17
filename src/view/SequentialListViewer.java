@@ -5,6 +5,8 @@
  */
 package view;
 
+import java.awt.Container;
+import java.awt.GridLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -32,7 +34,6 @@ public class SequentialListViewer extends JPanel {
         btCreate = new javax.swing.JButton();
         btLoad = new javax.swing.JButton();
         btSave = new javax.swing.JButton();
-        listPanel = new javax.swing.JPanel();
         optionsPanel = new javax.swing.JPanel();
         operationsPanel = new javax.swing.JPanel();
         btAdd = new javax.swing.JButton();
@@ -55,10 +56,6 @@ public class SequentialListViewer extends JPanel {
         btSave.setToolTipText("");
         btSave.setEnabled(false);
 
-        listPanel.setMaximumSize(new java.awt.Dimension(32767, 32767));
-        listPanel.setPreferredSize(new java.awt.Dimension(100, 100));
-        listPanel.setLayout(new javax.swing.BoxLayout(listPanel, javax.swing.BoxLayout.LINE_AXIS));
-
         optionsPanel.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
         optionsPanel.add(btCreate);
         optionsPanel.add(btLoad);
@@ -66,15 +63,34 @@ public class SequentialListViewer extends JPanel {
         operationsPanel.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
         btAdd.setText("Add");
+        btAdd.setEnabled(false);
+        btAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAddActionPerformed(evt);
+            }
+        });
         operationsPanel.add(btAdd);
 
         btRemove.setText("Remove");
+        btRemove.setEnabled(false);
+        btRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRemoveActionPerformed(evt);
+            }
+        });
         operationsPanel.add(btRemove);
 
         btSearch.setText("Search");
+        btSearch.setEnabled(false);
+        btSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSearchActionPerformed(evt);
+            }
+        });
         operationsPanel.add(btSearch);
 
-        scrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setToolTipText("");
+        scrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         statusLabel.setText("Empty");
 
@@ -118,20 +134,108 @@ public class SequentialListViewer extends JPanel {
             optionsPanel.add(btSave);
             optionsPanel.revalidate();
             listElements();
-            statusLabel.setText("Current Size: " + list.getSize() + "\t\t\tMaximum Size: " + list.getMaxSize());
+            statusLabel.setText("Current Size: " + list.getSize() + "         Maximum Size: " + list.getMaxSize());
+            btAdd.setEnabled(true);
+            btRemove.setEnabled(true);
+            btSearch.setEnabled(true);
             revalidate();
         } catch(NumberFormatException ex){
             //ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Invalid Size!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Size must be a positive integer!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btCreateActionPerformed
+
+    private void btAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddActionPerformed
+        int value = 0, position = 0, selection;
+        String options[] = {"Beginning", "Ending", "In a given position", "Cancel"};
+        selection = JOptionPane.showOptionDialog(this, "Where you would like to add an element", "Info", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        if(selection >= 0 && selection <= 2){
+            try{
+                value = Integer.parseInt(JOptionPane.showInputDialog(this, "Insert the value", "Info", JOptionPane.QUESTION_MESSAGE));
+            } catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(this, "Value must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            switch(selection){
+                case 0://first
+                    position = 1;
+                    break;
+                case 1://last
+                    position = list.getSize()+1;
+                    break;
+                case 2://x position
+                    try{
+                        position = Integer.parseInt(JOptionPane.showInputDialog(this, "<html>Insert the position where you would like to add <b>" + value + "</b></html>", "Info", JOptionPane.QUESTION_MESSAGE));
+                    } catch(NumberFormatException ex){
+                        JOptionPane.showMessageDialog(this, "Position must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            if(!list.setValueAtPosition(position, value)){
+                JOptionPane.showMessageDialog(this, "Invalid position or the list is full!", "Info", JOptionPane.PLAIN_MESSAGE);
+            }
+        }
+        listElements();
+    }//GEN-LAST:event_btAddActionPerformed
+
+    private void btSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchActionPerformed
+        try{
+            int position = Integer.parseInt(JOptionPane.showInputDialog(this, "Type the position to search for:", "Info", JOptionPane.QUESTION_MESSAGE));
+            if(list.getValueAtPosition(position) != null){
+                JOptionPane.showMessageDialog(this, new Element(""+ list.getValueAtPosition(position)), "Info", JOptionPane.PLAIN_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid position!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(this, "Position must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btSearchActionPerformed
+
+    private void btRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoveActionPerformed
+        int position = 0, selection;
+        String options[] = {"Beginning", "Ending", "In a given position", "Cancel"};
+        selection = JOptionPane.showOptionDialog(this, "Where you would like to remove an element", "Info", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        if(selection >= 0 && selection <= 2){
+            switch(selection){
+                case 0://first
+                    position = 1;
+                    break;
+                case 1://last
+                    position = list.getSize();
+                    break;
+                case 2://x position 
+                    try {
+                        position = Integer.parseInt(JOptionPane.showInputDialog(this, "Where do you would like to remove a element?", "Info", JOptionPane.QUESTION_MESSAGE));
+                    }catch(NumberFormatException ex){
+                        JOptionPane.showMessageDialog(this, "Position must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            Integer value = list.remove(position);
+            if(value == null){
+                JOptionPane.showMessageDialog(this, "Invalid position or the list is empty!", "Info", JOptionPane.PLAIN_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "" + value + " was removed from the list!");
+            }
+        }
+        listElements();
+    }//GEN-LAST:event_btRemoveActionPerformed
    
     private void listElements(){
-        for(int i = 0; i < list.getMaxSize(); i++){
-            listPanel.add(new Element("" + i));
+        Container cont = new Container();
+        for(int i = 1; i <= list.getMaxSize(); i++){
+            Integer value = list.getValueAtPosition(i);
+            cont.add(new Element(value == null? "null" : "" + value));
         }     
-        scrollPane.getViewport().add(listPanel);
-        scrollPane.revalidate();
+        cont.setLayout(new GridLayout());
+        scrollPane.getViewport().setView(cont);
+        statusLabel.setText("Current Size: " + list.getSize() + "         Maximum Size: " + list.getMaxSize());
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -141,7 +245,6 @@ public class SequentialListViewer extends JPanel {
     private javax.swing.JButton btRemove;
     private javax.swing.JButton btSave;
     private javax.swing.JButton btSearch;
-    private javax.swing.JPanel listPanel;
     private javax.swing.JPanel operationsPanel;
     private javax.swing.JPanel optionsPanel;
     private javax.swing.JScrollPane scrollPane;

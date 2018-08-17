@@ -41,30 +41,26 @@ public class SequentialList<T> implements Operations {
         return (position >= 1 && position <= size + 1);
     }
     
-    public int setValueAtPosition(int position, T value){
-        if(isFull()){
-            return 0;
-        } else if(!isValidPosition(position)){
-            return -1;
+    public boolean setValueAtPosition(int position, T value){
+        if(!isValidPosition(position) || isFull()){
+            return false;
         } else {
-            if(position == size + 1){
-                data[position-1] = value;
-                size++;
-                return 1;
-            } else {
-                for(int i = size-1; i >= position; i--){
+                for(int i = size; i >= position; i--){
                     data[i] = data[i-1];
                 }
                 data[position-1] = value;
                 size++;
-                return 1;
-            }
+                return true;
         }
     }
 
     @Override
     public T getValueAtPosition(int position){
-        return data[position-1];
+        if(isValidPosition(position)){
+            return data[position-1];
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -72,11 +68,13 @@ public class SequentialList<T> implements Operations {
         if(isEmpty() || !isValidPosition(position)){
             return null;
         } else {           
-            for(int i = position-1; i <= max_size; i++){
+            T removed = data[position-1];
+            for(int i = position-1; i < size-1; i++){
                 data[i] = data[i+1];
             }
+            data[size-1] = null;
             size--;
-            return data[position-1];
+            return removed;
         }
     }
 }
