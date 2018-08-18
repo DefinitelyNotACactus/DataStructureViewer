@@ -6,6 +6,7 @@
 
 package view;
 
+import java.awt.Color;
 import javax.swing.SwingConstants;
 
 /**
@@ -61,7 +62,10 @@ public class Element extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
+    public void setBorderColor(Color newColor){
+        setBackground(newColor);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables

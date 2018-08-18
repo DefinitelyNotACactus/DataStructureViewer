@@ -1,16 +1,24 @@
 package structures;
 
-public class SequentialList<T> implements Operations {
+public class SequentialList<T> implements Operations<T> {
+
     private T data[];
     private int size;
     private final int max_size;
     
+    /**
+     * Creates a new sequential list with default capacity (100).
+     */
     public SequentialList(){
         size = 0;
         max_size = 100;
         data = (T[]) new Object[max_size];
     }
 
+    /**
+     * Creates a new sequential list with the given capaciticy.
+     * @param max_size The list maximum capacity.
+     */
     public SequentialList(int max_size){
         size = 0;
         this.max_size = max_size;
@@ -41,7 +49,8 @@ public class SequentialList<T> implements Operations {
         return (position >= 1 && position <= size + 1);
     }
     
-    public boolean setValueAtPosition(int position, T value){
+    @Override
+    public boolean addValue(int position, T value){
         if(!isValidPosition(position) || isFull()){
             return false;
         } else {
@@ -64,6 +73,16 @@ public class SequentialList<T> implements Operations {
     }
 
     @Override
+    public int getPositionByValue(T value){
+        for(int i = 0; i < size; i++){
+            if(value == data[i]){
+                return i+1;
+            }
+        }
+        return 0;
+    }
+    
+    @Override
     public T remove(int position){
         if(isEmpty() || !isValidPosition(position)){
             return null;
@@ -76,5 +95,14 @@ public class SequentialList<T> implements Operations {
             size--;
             return removed;
         }
+    }
+    
+    @Override
+    public int remove(T value){
+        int position = getPositionByValue(value);
+        if(position != 0){
+            remove(position);
+        }
+        return position;
     }
 }

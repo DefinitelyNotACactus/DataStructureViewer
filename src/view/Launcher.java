@@ -10,8 +10,12 @@ import java.awt.EventQueue;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -159,7 +163,26 @@ public class Launcher extends JFrame {
         new Viewer("Linked List").setVisible(true);
         dispose();
     }//GEN-LAST:event_btLinkedListActionPerformed
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        EventQueue.invokeLater(() -> {
+            new Launcher().setVisible(true);
+        });
+    }
 
+    private void setTheme(){
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+                Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }   
+    
     private void epilepsy(){
         Random rand = new Random();
         new Timer().scheduleAtFixedRate(new TimerTask(){          
@@ -171,15 +194,6 @@ public class Launcher extends JFrame {
         }, 0, 1000);
     }
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        EventQueue.invokeLater(() -> {
-            new Launcher().setVisible(true);
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btDLinkedList;
     private javax.swing.JButton btGraphs;

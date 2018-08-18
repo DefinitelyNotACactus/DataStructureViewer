@@ -5,6 +5,7 @@
  */
 package view;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
 import javax.swing.JScrollPane;
@@ -124,11 +125,17 @@ public class SequentialListViewer extends JPanel {
 
     private void btCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCreateActionPerformed
         try{
-            int size = Integer.parseInt(JOptionPane.showInputDialog(this, "Insert the list maximum size (Leave 0 for default size)", "Info", JOptionPane.QUESTION_MESSAGE));
+            String input = JOptionPane.showInputDialog(this, "Insert the list maximum size (Leave 0 for default size)", "Info", JOptionPane.QUESTION_MESSAGE);
+            if(input == null){
+                return;
+            }
+            int size = Integer.parseInt(input);
             if(size == 0){
                 list = new SequentialList<>();
-            } else {
+            } else if(size > 0){
                 list = new SequentialList<>(size);
+            } else {
+                throw new NumberFormatException();
             }
             optionsPanel.remove(btCreate);
             optionsPanel.add(btSave);
@@ -147,11 +154,15 @@ public class SequentialListViewer extends JPanel {
 
     private void btAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddActionPerformed
         int value = 0, position = 0, selection;
-        String options[] = {"Beginning", "Ending", "In a given position", "Cancel"};
+        String options[] = {"Beginning", "Ending", "In a given position", "Cancel"}, input;
         selection = JOptionPane.showOptionDialog(this, "Where you would like to add an element", "Info", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         if(selection >= 0 && selection <= 2){
             try{
-                value = Integer.parseInt(JOptionPane.showInputDialog(this, "Insert the value", "Info", JOptionPane.QUESTION_MESSAGE));
+                input = JOptionPane.showInputDialog(this, "Insert the value", "Info", JOptionPane.QUESTION_MESSAGE);
+                if(input == null){
+                    return;
+                }
+                value = Integer.parseInt(input);
             } catch(NumberFormatException ex){
                 JOptionPane.showMessageDialog(this, "Value must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -165,7 +176,11 @@ public class SequentialListViewer extends JPanel {
                     break;
                 case 2://x position
                     try{
-                        position = Integer.parseInt(JOptionPane.showInputDialog(this, "<html>Insert the position where you would like to add <b>" + value + "</b></html>", "Info", JOptionPane.QUESTION_MESSAGE));
+                        input = JOptionPane.showInputDialog(this, "Insert the position where you would like to add " + value, "Info", JOptionPane.QUESTION_MESSAGE);
+                        if(input == null){
+                            return;
+                        }
+                        position = Integer.parseInt(input);
                     } catch(NumberFormatException ex){
                         JOptionPane.showMessageDialog(this, "Position must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
                         return;
@@ -174,55 +189,103 @@ public class SequentialListViewer extends JPanel {
                 default:
                     break;
             }
-            if(!list.setValueAtPosition(position, value)){
-                JOptionPane.showMessageDialog(this, "Invalid position or the list is full!", "Info", JOptionPane.PLAIN_MESSAGE);
+            if(!list.addValue(position, value)){
+                JOptionPane.showMessageDialog(this, "Invalid position or the list is full!", "Info", JOptionPane.WARNING_MESSAGE);
             }
         }
         listElements();
     }//GEN-LAST:event_btAddActionPerformed
 
     private void btSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchActionPerformed
-        try{
-            int position = Integer.parseInt(JOptionPane.showInputDialog(this, "Type the position to search for:", "Info", JOptionPane.QUESTION_MESSAGE));
-            if(list.getValueAtPosition(position) != null){
-                JOptionPane.showMessageDialog(this, new Element(""+ list.getValueAtPosition(position)), "Info", JOptionPane.PLAIN_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, "Invalid position!", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }catch(NumberFormatException ex){
-            JOptionPane.showMessageDialog(this, "Position must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        int selection;
+        String options[] = {"By Value", "By Position", "Cancel"}, input;
+        selection = JOptionPane.showOptionDialog(this, "How you would like to search the list?", "Info", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        switch(selection){
+            case 0://search by value
+                try{
+                    input = JOptionPane.showInputDialog(this, "Type the value to search for:", "Info", JOptionPane.QUESTION_MESSAGE);
+                    if(input == null){
+                        return;
+                    }
+                    Integer value = Integer.parseInt(input);
+                    int position = list.getPositionByValue(value);
+                    if(position != 0){
+                        //JOptionPane.showMessageDialog(this, "" + value + " is at position " + position, "Info", JOptionPane.PLAIN_MESSAGE);
+                        listElements(position);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "" + value + " is not on the list!", "Info", JOptionPane.ERROR_MESSAGE);
+                    }
+                }catch(NumberFormatException ex){
+                    JOptionPane.showMessageDialog(this, "Value must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                break;
+            case 1://search by position
+                try{
+                    input = JOptionPane.showInputDialog(this, "Type the position to search for:", "Info", JOptionPane.QUESTION_MESSAGE);
+                    if(input == null){
+                        return;
+                    }
+                    int position = Integer.parseInt(input);
+                    if(list.getValueAtPosition(position) != null){
+                        JOptionPane.showMessageDialog(this, new Element(""+ list.getValueAtPosition(position)), "Value at position " + position, JOptionPane.PLAIN_MESSAGE);
+                        listElements(position);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Invalid position!", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }catch(NumberFormatException ex){
+                    JOptionPane.showMessageDialog(this, "Position must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                break;
+            default:
+                break;
+        } 
     }//GEN-LAST:event_btSearchActionPerformed
 
     private void btRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoveActionPerformed
         int position = 0, selection;
-        String options[] = {"Beginning", "Ending", "In a given position", "Cancel"};
-        selection = JOptionPane.showOptionDialog(this, "Where you would like to remove an element", "Info", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        String options[] = {"Remove by position", "Remove by element", "Cancel"}, input;
+        selection = JOptionPane.showOptionDialog(this, "How you would like to remove an element", "Info", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         if(selection >= 0 && selection <= 2){
             switch(selection){
-                case 0://first
-                    position = 1;
-                    break;
-                case 1://last
-                    position = list.getSize();
-                    break;
-                case 2://x position 
+                case 0://remove by position
                     try {
-                        position = Integer.parseInt(JOptionPane.showInputDialog(this, "Where do you would like to remove a element?", "Info", JOptionPane.QUESTION_MESSAGE));
+                        input = JOptionPane.showInputDialog(this, "Where do you would like to remove a element?", "Info", JOptionPane.QUESTION_MESSAGE);
+                        if(input == null){
+                            return;
+                        }
+                        position = Integer.parseInt(input);
+                        Integer value = list.remove(position);
+                        if(value == null){
+                            JOptionPane.showMessageDialog(this, "Invalid position or the list is empty!", "Info", JOptionPane.WARNING_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "" + value + " was removed from the list!");
+                        }
                     }catch(NumberFormatException ex){
                         JOptionPane.showMessageDialog(this, "Position must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                     break;
+                case 1://remove by element
+                    try {
+                        input = JOptionPane.showInputDialog(this, "Type the element to remove from the list:", "Info", JOptionPane.QUESTION_MESSAGE);
+                        if(input == null){
+                            return;
+                        }
+                        Integer value = Integer.parseInt(input);
+                        position = list.remove(value);
+                        if(position == 0){
+                            JOptionPane.showMessageDialog(this, "" + value + " is not on the list!", "Error", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "" + value + " was removed from the list at position " + position);
+                        }
+                    }catch(NumberFormatException ex){
+                        JOptionPane.showMessageDialog(this, "The element must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    break;
                 default:
                     break;
-            }
-            Integer value = list.remove(position);
-            if(value == null){
-                JOptionPane.showMessageDialog(this, "Invalid position or the list is empty!", "Info", JOptionPane.PLAIN_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, "" + value + " was removed from the list!");
-            }
+            }         
         }
         listElements();
     }//GEN-LAST:event_btRemoveActionPerformed
@@ -232,6 +295,21 @@ public class SequentialListViewer extends JPanel {
         for(int i = 1; i <= list.getMaxSize(); i++){
             Integer value = list.getValueAtPosition(i);
             cont.add(new Element(value == null? "null" : "" + value));
+        }     
+        cont.setLayout(new GridLayout());
+        scrollPane.getViewport().setView(cont);
+        statusLabel.setText("Current Size: " + list.getSize() + "         Maximum Size: " + list.getMaxSize());
+    }
+    
+    private void listElements(int hPosition){
+        Container cont = new Container();
+        for(int i = 1; i <= list.getMaxSize(); i++){
+            Integer value = list.getValueAtPosition(i);
+            Element element = new Element(value == null? "null" : "" + value);
+            if(i == hPosition){
+                element.setBorderColor(Color.yellow);
+            }
+            cont.add(element);
         }     
         cont.setLayout(new GridLayout());
         scrollPane.getViewport().setView(cont);
