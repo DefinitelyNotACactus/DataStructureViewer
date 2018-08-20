@@ -21,10 +21,17 @@ public interface Operations<T> {
     public int getSize();
     
     /**
-     * Tells the maximum capacity of the structure.
-     * @return An int containing the structure capacity.
+     * Tells the maximum capacity of the structure, if a sequential list, else, it's current size.
+     * @return An int containing the structure capacity (or size).
      */
     public int getMaxSize();
+    
+    /**
+     * Checks if a given position is valid or not.
+     * @param position The position to be checked.
+     * @return True if the position is valid, else, false.
+     */
+    public boolean isValidPosition(int position);
     
     /**
      * Adds a value in a given position.
@@ -47,6 +54,14 @@ public interface Operations<T> {
      * @return An int with the first position of that value, else, 0.
      */
     public int getPositionByValue(T value);
+    
+    /**
+     * Change the value at a given position.
+     * @param position The position to be modified.
+     * @param newValue The position new value.
+     * @return True if the operation was succesful, else, false.
+     */
+    public boolean setValueAtPosition(int position, T newValue);
     
     /**
      * Removes an element in a given position.

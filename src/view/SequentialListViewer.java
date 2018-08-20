@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import java.awt.Color;
@@ -38,6 +33,7 @@ public class SequentialListViewer extends JPanel {
         optionsPanel = new javax.swing.JPanel();
         operationsPanel = new javax.swing.JPanel();
         btAdd = new javax.swing.JButton();
+        btModify = new javax.swing.JButton();
         btRemove = new javax.swing.JButton();
         btSearch = new javax.swing.JButton();
         scrollPane = new JScrollPane();
@@ -71,6 +67,15 @@ public class SequentialListViewer extends JPanel {
             }
         });
         operationsPanel.add(btAdd);
+
+        btModify.setText("Modify");
+        btModify.setEnabled(false);
+        btModify.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btModifyActionPerformed(evt);
+            }
+        });
+        operationsPanel.add(btModify);
 
         btRemove.setText("Remove");
         btRemove.setEnabled(false);
@@ -125,7 +130,7 @@ public class SequentialListViewer extends JPanel {
 
     private void btCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCreateActionPerformed
         try{
-            String input = JOptionPane.showInputDialog(this, "Insert the list maximum size (Leave 0 for default size)", "Info", JOptionPane.QUESTION_MESSAGE);
+            String input = JOptionPane.showInputDialog(this, "Insert the list maximum size (Type 0 for default size)", "Info", JOptionPane.QUESTION_MESSAGE);
             if(input == null){
                 return;
             }
@@ -143,6 +148,7 @@ public class SequentialListViewer extends JPanel {
             listElements();
             statusLabel.setText("Current Size: " + list.getSize() + "         Maximum Size: " + list.getMaxSize());
             btAdd.setEnabled(true);
+            btModify.setEnabled(true);
             btRemove.setEnabled(true);
             btSearch.setEnabled(true);
             revalidate();
@@ -207,11 +213,11 @@ public class SequentialListViewer extends JPanel {
                     if(input == null){
                         return;
                     }
-                    Integer value = Integer.parseInt(input);
+                    int value = Integer.parseInt(input);
                     int position = list.getPositionByValue(value);
                     if(position != 0){
                         //JOptionPane.showMessageDialog(this, "" + value + " is at position " + position, "Info", JOptionPane.PLAIN_MESSAGE);
-                        listElements(position);
+                        listElements(value, false);
                     } else {
                         JOptionPane.showMessageDialog(this, "" + value + " is not on the list!", "Info", JOptionPane.ERROR_MESSAGE);
                     }
@@ -228,7 +234,7 @@ public class SequentialListViewer extends JPanel {
                     int position = Integer.parseInt(input);
                     if(list.getValueAtPosition(position) != null){
                         JOptionPane.showMessageDialog(this, new Element(""+ list.getValueAtPosition(position)), "Value at position " + position, JOptionPane.PLAIN_MESSAGE);
-                        listElements(position);
+                        listElements(position, true);
                     } else {
                         JOptionPane.showMessageDialog(this, "Invalid position!", "Error", JOptionPane.ERROR_MESSAGE);
                     }
@@ -289,6 +295,28 @@ public class SequentialListViewer extends JPanel {
         }
         listElements();
     }//GEN-LAST:event_btRemoveActionPerformed
+
+    private void btModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModifyActionPerformed
+        try{
+            String input = JOptionPane.showInputDialog(this, "Please type the position you would like to modify: ", "Info", JOptionPane.QUESTION_MESSAGE);
+            if(input == null){
+                return;
+            }
+            int pos = Integer.parseInt(input);
+            if(!list.isValidPosition(pos)){
+                throw new Exception();
+            } else {
+                input = JOptionPane.showInputDialog(this, "Insert the new value for position " + pos + " : ", "Info", JOptionPane.QUESTION_MESSAGE);
+                int newValue = Integer.parseInt(input);
+                list.setValueAtPosition(pos, newValue);
+                listElements(pos, true);
+            }
+        } catch (NumberFormatException ex){
+            JOptionPane.showMessageDialog(this, "The position and value must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex){
+            
+        }
+    }//GEN-LAST:event_btModifyActionPerformed
    
     private void listElements(){
         Container cont = new Container();
@@ -301,13 +329,19 @@ public class SequentialListViewer extends JPanel {
         statusLabel.setText("Current Size: " + list.getSize() + "         Maximum Size: " + list.getMaxSize());
     }
     
-    private void listElements(int hPosition){
+    private void listElements(int number, boolean position){
         Container cont = new Container();
         for(int i = 1; i <= list.getMaxSize(); i++){
             Integer value = list.getValueAtPosition(i);
             Element element = new Element(value == null? "null" : "" + value);
-            if(i == hPosition){
-                element.setBorderColor(Color.yellow);
+            if(position){
+                if(i == number){
+                    element.setBorderColor(Color.yellow);
+                }
+            } else {
+                if(value == number){
+                    element.setBorderColor(Color.yellow);
+                }
             }
             cont.add(element);
         }     
@@ -320,6 +354,7 @@ public class SequentialListViewer extends JPanel {
     private javax.swing.JButton btAdd;
     private javax.swing.JButton btCreate;
     private javax.swing.JButton btLoad;
+    private javax.swing.JButton btModify;
     private javax.swing.JButton btRemove;
     private javax.swing.JButton btSave;
     private javax.swing.JButton btSearch;

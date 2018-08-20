@@ -1,19 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package view;
 
 import java.awt.Color;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-/**
- *
- * @author aluno
- */
-public class Element extends javax.swing.JPanel {
+public class Element extends JPanel {
 
     private String value;
     
@@ -38,6 +29,7 @@ public class Element extends javax.swing.JPanel {
         setBackground(new java.awt.Color(0, 0, 0));
         setMaximumSize(new java.awt.Dimension(219, 219));
         setMinimumSize(new java.awt.Dimension(200, 200));
+        setPreferredSize(new java.awt.Dimension(200, 200));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         jLabel1.setText(value);

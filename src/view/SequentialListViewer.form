@@ -96,6 +96,15 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btAddActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JButton" name="btModify">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Modify"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btModifyActionPerformed"/>
+          </Events>
+        </Component>
         <Component class="javax.swing.JButton" name="btRemove">
           <Properties>
             <Property name="text" type="java.lang.String" value="Remove"/>

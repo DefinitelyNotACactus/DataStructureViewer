@@ -45,7 +45,8 @@ public class SequentialList<T> implements Operations<T> {
         return max_size;
     }
     
-    private boolean isValidPosition(int position){
+    @Override
+    public boolean isValidPosition(int position){
         return (position >= 1 && position <= size + 1);
     }
     
@@ -80,6 +81,16 @@ public class SequentialList<T> implements Operations<T> {
             }
         }
         return 0;
+    }
+    
+    @Override
+    public boolean setValueAtPosition(int position, T newValue) {
+        if(isValidPosition(position)){
+            data[position-1] = newValue;
+            return true;
+        } else {
+            return false;
+        }
     }
     
     @Override

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import java.awt.Color;
@@ -17,10 +12,6 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-/**
- *
- * @author David
- */
 public class Launcher extends JFrame {
 
     /**
@@ -56,12 +47,12 @@ public class Launcher extends JFrame {
         setBackground(new java.awt.Color(0, 51, 153));
         setMinimumSize(new java.awt.Dimension(100, 100));
 
-        contentPanel.setToolTipText("Data Structure Viewer");
+        contentPanel.setToolTipText("");
         contentPanel.setMinimumSize(new java.awt.Dimension(400, 500));
 
         titleLabel.setFont(new java.awt.Font("Corbel", 0, 36)); // NOI18N
         titleLabel.setText("Data Structure Viewer");
-        titleLabel.setToolTipText("");
+        titleLabel.setToolTipText("Data Structure Project");
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         btSeqList.setText("Sequential List");
