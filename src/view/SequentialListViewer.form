@@ -1,29 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
-  <NonVisualComponents>
-    <Component class="javax.swing.JButton" name="btCreate">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Create List"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btCreateActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btLoad">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Load"/>
-        <Property name="enabled" type="boolean" value="false"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btSave">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Save"/>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
-        <Property name="enabled" type="boolean" value="false"/>
-      </Properties>
-    </Component>
-  </NonVisualComponents>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -42,10 +19,10 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="scrollPane" max="32767" attributes="0"/>
                   <Component id="optionsPanel" alignment="1" max="32767" attributes="0"/>
                   <Component id="operationsPanel" alignment="0" pref="780" max="32767" attributes="0"/>
                   <Component id="statusLabel" alignment="0" max="32767" attributes="0"/>
+                  <Component id="scrollPane" alignment="0" pref="780" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -70,7 +47,7 @@
   <SubComponents>
     <Container class="javax.swing.JPanel" name="optionsPanel">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="optionsPanel.add(btCreate);&#xa;optionsPanel.add(btLoad);"/>
+        <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="optionsPanel.add(btNew);&#xa;optionsPanel.add(btLoad);"/>
       </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
@@ -78,6 +55,29 @@
         <Property name="horizontalGap" type="int" value="5"/>
         <Property name="rows" type="int" value="1"/>
       </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="btNew">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="New List"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btNewActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btLoad">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Load"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btSave">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Save"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+      </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="operationsPanel">
 

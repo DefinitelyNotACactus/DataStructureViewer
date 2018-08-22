@@ -27,10 +27,10 @@ public class SequentialListViewer extends JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btCreate = new javax.swing.JButton();
+        optionsPanel = new javax.swing.JPanel();
+        btNew = new javax.swing.JButton();
         btLoad = new javax.swing.JButton();
         btSave = new javax.swing.JButton();
-        optionsPanel = new javax.swing.JPanel();
         operationsPanel = new javax.swing.JPanel();
         btAdd = new javax.swing.JButton();
         btModify = new javax.swing.JButton();
@@ -39,23 +39,26 @@ public class SequentialListViewer extends JPanel {
         scrollPane = new JScrollPane();
         statusLabel = new javax.swing.JLabel();
 
-        btCreate.setText("Create List");
-        btCreate.addActionListener(new java.awt.event.ActionListener() {
+        optionsPanel.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
+        optionsPanel.add(btNew);
+        optionsPanel.add(btLoad);
+
+        btNew.setText("New List");
+        btNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btCreateActionPerformed(evt);
+                btNewActionPerformed(evt);
             }
         });
+        optionsPanel.add(btNew);
 
         btLoad.setText("Load");
         btLoad.setEnabled(false);
+        optionsPanel.add(btLoad);
 
         btSave.setText("Save");
         btSave.setToolTipText("");
         btSave.setEnabled(false);
-
-        optionsPanel.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
-        optionsPanel.add(btCreate);
-        optionsPanel.add(btLoad);
+        optionsPanel.add(btSave);
 
         operationsPanel.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
@@ -107,10 +110,10 @@ public class SequentialListViewer extends JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(scrollPane)
                     .addComponent(optionsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(operationsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
-                    .addComponent(statusLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(statusLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -128,7 +131,7 @@ public class SequentialListViewer extends JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCreateActionPerformed
+    private void btNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNewActionPerformed
         try{
             String input = JOptionPane.showInputDialog(this, "Insert the list maximum size (Type 0 for default size)", "Info", JOptionPane.QUESTION_MESSAGE);
             if(input == null){
@@ -142,9 +145,6 @@ public class SequentialListViewer extends JPanel {
             } else {
                 throw new NumberFormatException();
             }
-            optionsPanel.remove(btCreate);
-            optionsPanel.add(btSave);
-            optionsPanel.revalidate();
             listElements();
             statusLabel.setText("Current Size: " + list.getSize() + "         Maximum Size: " + list.getMaxSize());
             btAdd.setEnabled(true);
@@ -156,7 +156,7 @@ public class SequentialListViewer extends JPanel {
             //ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Size must be a positive integer!", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btCreateActionPerformed
+    }//GEN-LAST:event_btNewActionPerformed
 
     private void btAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddActionPerformed
         int value = 0, position = 0, selection;
@@ -214,12 +214,10 @@ public class SequentialListViewer extends JPanel {
                         return;
                     }
                     int value = Integer.parseInt(input);
-                    int position = list.getPositionByValue(value);
-                    if(position != 0){
-                        //JOptionPane.showMessageDialog(this, "" + value + " is at position " + position, "Info", JOptionPane.PLAIN_MESSAGE);
-                        listElements(value, false);
-                    } else {
-                        JOptionPane.showMessageDialog(this, "" + value + " is not on the list!", "Info", JOptionPane.ERROR_MESSAGE);
+                    try{
+                        listElements(list.getPositionByValue(value), false);
+                    }catch(Exception ex){
+                        JOptionPane.showMessageDialog(this, ex.getMessage(), "Info", JOptionPane.WARNING_MESSAGE);
                     }
                 }catch(NumberFormatException ex){
                     JOptionPane.showMessageDialog(this, "Value must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -232,12 +230,13 @@ public class SequentialListViewer extends JPanel {
                         return;
                     }
                     int position = Integer.parseInt(input);
-                    if(list.getValueAtPosition(position) != null){
+                    try{
+                        list.getValueAtPosition(position);
                         JOptionPane.showMessageDialog(this, new Element(""+ list.getValueAtPosition(position)), "Value at position " + position, JOptionPane.PLAIN_MESSAGE);
                         listElements(position, true);
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Invalid position!", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
+                    }catch(Exception ex){
+                        JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }                
                 }catch(NumberFormatException ex){
                     JOptionPane.showMessageDialog(this, "Position must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -260,11 +259,11 @@ public class SequentialListViewer extends JPanel {
                             return;
                         }
                         position = Integer.parseInt(input);
-                        Integer value = list.remove(position);
-                        if(value == null){
-                            JOptionPane.showMessageDialog(this, "Invalid position or the list is empty!", "Info", JOptionPane.WARNING_MESSAGE);
-                        } else {
+                        try{
+                            Integer value = list.remove(position);
                             JOptionPane.showMessageDialog(this, "" + value + " was removed from the list!");
+                        }catch(Exception ex){
+                            JOptionPane.showMessageDialog(this, ex.getMessage(), "Info", JOptionPane.WARNING_MESSAGE);
                         }
                     }catch(NumberFormatException ex){
                         JOptionPane.showMessageDialog(this, "Position must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -278,11 +277,11 @@ public class SequentialListViewer extends JPanel {
                             return;
                         }
                         Integer value = Integer.parseInt(input);
-                        position = list.remove(value);
-                        if(position == 0){
-                            JOptionPane.showMessageDialog(this, "" + value + " is not on the list!", "Error", JOptionPane.ERROR_MESSAGE);
-                        } else {
+                        try{
+                            position = list.remove(value);
                             JOptionPane.showMessageDialog(this, "" + value + " was removed from the list at position " + position);
+                        }catch(Exception ex){
+                            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         }
                     }catch(NumberFormatException ex){
                         JOptionPane.showMessageDialog(this, "The element must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -321,8 +320,11 @@ public class SequentialListViewer extends JPanel {
     private void listElements(){
         Container cont = new Container();
         for(int i = 1; i <= list.getMaxSize(); i++){
-            Integer value = list.getValueAtPosition(i);
-            cont.add(new Element(value == null? "null" : "" + value));
+            try {
+                cont.add(new Element("" + list.getValueAtPosition(i)));
+            }catch(Exception ex){
+                cont.add(new Element("null"));
+            }
         }     
         cont.setLayout(new GridLayout());
         scrollPane.getViewport().setView(cont);
@@ -332,16 +334,23 @@ public class SequentialListViewer extends JPanel {
     private void listElements(int number, boolean position){
         Container cont = new Container();
         for(int i = 1; i <= list.getMaxSize(); i++){
-            Integer value = list.getValueAtPosition(i);
-            Element element = new Element(value == null? "null" : "" + value);
-            if(position){
-                if(i == number){
-                    element.setBorderColor(Color.yellow);
+            Element element;
+            try {
+                int value = list.getValueAtPosition(i);
+                element = new Element("" + list.getValueAtPosition(i));
+                cont.add(element);
+                if(position){
+                    if(i == number){
+                        element.setBorderColor(Color.yellow);
+                    }
+                } else {
+                    if(value == number){
+                        element.setBorderColor(Color.yellow);
+                    }
                 }
-            } else {
-                if(value == number){
-                    element.setBorderColor(Color.yellow);
-                }
+            }catch(Exception ex){
+                element = new Element("null");
+                cont.add(element);
             }
             cont.add(element);
         }     
@@ -352,9 +361,9 @@ public class SequentialListViewer extends JPanel {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdd;
-    private javax.swing.JButton btCreate;
     private javax.swing.JButton btLoad;
     private javax.swing.JButton btModify;
+    private javax.swing.JButton btNew;
     private javax.swing.JButton btRemove;
     private javax.swing.JButton btSave;
     private javax.swing.JButton btSearch;

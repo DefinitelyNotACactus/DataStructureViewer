@@ -65,22 +65,22 @@ public class SequentialList<T> implements Operations<T> {
     }
 
     @Override
-    public T getValueAtPosition(int position){
+    public T getValueAtPosition(int position) throws Exception {
         if(isValidPosition(position)){
             return data[position-1];
         } else {
-            return null;
+            throw new Exception("Invalid Position");
         }
     }
 
     @Override
-    public int getPositionByValue(T value){
+    public int getPositionByValue(T value) throws Exception {
         for(int i = 0; i < size; i++){
             if(value == data[i]){
                 return i+1;
             }
         }
-        return 0;
+        throw new Exception("" + value + " is not on the list!");
     }
     
     @Override
@@ -94,10 +94,12 @@ public class SequentialList<T> implements Operations<T> {
     }
     
     @Override
-    public T remove(int position){
-        if(isEmpty() || !isValidPosition(position)){
-            return null;
-        } else {           
+    public T remove(int position) throws Exception {
+        if(isEmpty()){
+            throw new Exception("The list is empty");
+        } else if(!isValidPosition(position)){
+            throw new Exception("Invalid Position");
+        } else {
             T removed = data[position-1];
             for(int i = position-1; i < size-1; i++){
                 data[i] = data[i+1];
@@ -109,7 +111,7 @@ public class SequentialList<T> implements Operations<T> {
     }
     
     @Override
-    public int remove(T value){
+    public int remove(T value) throws Exception {
         int position = getPositionByValue(value);
         if(position != 0){
             remove(position);

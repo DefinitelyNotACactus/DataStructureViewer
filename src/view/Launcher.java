@@ -19,7 +19,7 @@ public class Launcher extends JFrame {
      */
     public Launcher() {
         initComponents();
-        //epilepsy();
+        epilepsy();
     }
 
     /**

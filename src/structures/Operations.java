@@ -45,15 +45,17 @@ public interface Operations<T> {
      * Tells the element of a given position.
      * @param position The position to be searched.
      * @return The element of that position if valid, else, null.
+     * @throws java.lang.Exception If the position is invalid.
      */
-    public T getValueAtPosition(int position);
+    public T getValueAtPosition(int position) throws Exception;
     
     /**
      * Searches the position of a given value.
      * @param value The value to be searched.
      * @return An int with the first position of that value, else, 0.
+     * @throws java.lang.Exception If the value is not found.
      */
-    public int getPositionByValue(T value);
+    public int getPositionByValue(T value) throws Exception;
     
     /**
      * Change the value at a given position.
@@ -67,13 +69,15 @@ public interface Operations<T> {
      * Removes an element in a given position.
      * @param position The element position.
      * @return The element removed.
+     * @throws java.lang.Exception If the position is invalid.
      */
-    public T remove(int position);
+    public T remove(int position) throws Exception;
     
     /**
      * Removes an element from the structure.
      * @param value The element to be removed.
      * @return An int with the element removed position if found, else, 0.
+     * @throws java.lang.Exception If the position is invalid.
      */
-    public int remove(T value);
+    public int remove(T value) throws Exception;
 }
