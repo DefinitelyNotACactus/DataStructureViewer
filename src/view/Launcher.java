@@ -19,7 +19,7 @@ public class Launcher extends JFrame {
      */
     public Launcher() {
         initComponents();
-        epilepsy();
+        //epilepsy();
     }
 
     /**
@@ -51,6 +51,7 @@ public class Launcher extends JFrame {
         contentPanel.setMinimumSize(new java.awt.Dimension(400, 500));
 
         titleLabel.setFont(new java.awt.Font("Corbel", 0, 36)); // NOI18N
+        titleLabel.setForeground(new java.awt.Color(0, 51, 51));
         titleLabel.setText("Data Structure Viewer");
         titleLabel.setToolTipText("Data Structure Project");
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -77,7 +78,11 @@ public class Launcher extends JFrame {
         btStack.setEnabled(false);
 
         btQueue.setText("Queue");
-        btQueue.setEnabled(false);
+        btQueue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btQueueActionPerformed(evt);
+            }
+        });
 
         btTrees.setText("Trees");
         btTrees.setEnabled(false);
@@ -154,6 +159,11 @@ public class Launcher extends JFrame {
         new Viewer("Linked List").setVisible(true);
         dispose();
     }//GEN-LAST:event_btLinkedListActionPerformed
+
+    private void btQueueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btQueueActionPerformed
+        new Viewer("Queue").setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btQueueActionPerformed
     
     /**
      * @param args the command line arguments
@@ -176,13 +186,30 @@ public class Launcher extends JFrame {
     
     private void epilepsy(){
         Random rand = new Random();
+        titleLabel.setText("FUCK THIS CLASS");
         new Timer().scheduleAtFixedRate(new TimerTask(){          
             @Override
             public void run(){           
                 contentPanel.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btDLinkedList.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btGraphs.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btLinkedList.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btQueue.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btSeqList.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btStack.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btTrees.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btDLinkedList.setForeground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btGraphs.setForeground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btLinkedList.setForeground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btQueue.setForeground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btSeqList.setForeground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btStack.setForeground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btTrees.setForeground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                jLabel1.setForeground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                titleLabel.setForeground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
                 revalidate();
             }
-        }, 0, 1000);
+        }, 0, 500);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

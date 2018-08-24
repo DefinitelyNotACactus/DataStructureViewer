@@ -4,25 +4,22 @@ public class SequentialList<T> implements Operations<T> {
 
     private T data[];
     private int size;
-    private final int max_size;
     
     /**
      * Creates a new sequential list with default capacity (100).
      */
     public SequentialList(){
         size = 0;
-        max_size = 100;
-        data = (T[]) new Object[max_size];
+        data = (T[]) new Object[100];
     }
 
     /**
      * Creates a new sequential list with the given capaciticy.
-     * @param max_size The list maximum capacity.
+     * @param maxSize The list maximum capacity.
      */
-    public SequentialList(int max_size){
+    public SequentialList(int maxSize){
         size = 0;
-        this.max_size = max_size;
-        data = (T[]) new Object[max_size];
+        data = (T[]) new Object[maxSize];
     }
     
     @Override
@@ -32,7 +29,7 @@ public class SequentialList<T> implements Operations<T> {
 
     @Override
     public boolean isFull(){
-        return (size == max_size);
+        return (size == data.length);
     }
 
     @Override
@@ -42,7 +39,7 @@ public class SequentialList<T> implements Operations<T> {
 
     @Override
     public int getMaxSize(){
-        return max_size;
+        return data.length;
     }
     
     @Override
