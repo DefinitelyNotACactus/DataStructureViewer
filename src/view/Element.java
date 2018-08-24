@@ -33,7 +33,11 @@ public class Element extends JPanel {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         jLabel1.setText(value);
+        jLabel1.setToolTipText(value);
+        jLabel1.setMaximumSize(new java.awt.Dimension(58, 58));
+        jLabel1.setMinimumSize(new java.awt.Dimension(58, 58));
         jLabel1.setOpaque(true);
+        jLabel1.setPreferredSize(new java.awt.Dimension(58, 58));
         jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -42,7 +46,7 @@ public class Element extends JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(

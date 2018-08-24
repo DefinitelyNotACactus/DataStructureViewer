@@ -3,13 +3,10 @@ package view;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JScrollPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import structures.Queue;
-import structures.SequentialList;
 
 public class QueueViewer extends JPanel {
 
@@ -179,8 +176,10 @@ public class QueueViewer extends JPanel {
                 element = new Element("" + queue.getValueAtPosition(i));
                 if(i-1 == queue.getStart() && queue.getSize() > 0){
                     element.setBorderColor(Color.BLUE);
+                    element.setToolTipText("Queue's first element");
                 } else if(i-1 == queue.getEnd() && queue.getSize() > 0){
                     element.setBorderColor(Color.RED);
+                    element.setToolTipText("Queue's last element");
                 }
                 cont.add(element);
             }catch(Exception ex){

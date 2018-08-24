@@ -319,11 +319,16 @@ public class SequentialListViewer extends JPanel {
    
     private void listElements(){
         Container cont = new Container();
+        Element element;
         for(int i = 1; i <= list.getMaxSize(); i++){
             try {
-                cont.add(new Element("" + list.getValueAtPosition(i)));
+                element = new Element("" + list.getValueAtPosition(i));
+                element.setToolTipText("Position " + i);
+                cont.add(element);
             }catch(Exception ex){
-                cont.add(new Element("null"));
+                element = new Element("null");
+                element.setToolTipText("Position " + i);
+                cont.add(element);
             }
         }     
         cont.setLayout(new GridLayout());
