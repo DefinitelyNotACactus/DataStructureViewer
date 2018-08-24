@@ -7,7 +7,7 @@ package structures;
 
 /**
  *
- * @author aluno
+ * @author Gabriel Arnaud
  */
 public class SimplyLinkedList<T> implements Operations<T>  {
     private Node<T> head;
@@ -98,6 +98,7 @@ public class SimplyLinkedList<T> implements Operations<T>  {
      Node<T> newNode = new Node<>();
      newNode.setNext(head);
      head.setNext(newNode);
+     size ++;
      return true;
     }
     
@@ -109,6 +110,7 @@ public class SimplyLinkedList<T> implements Operations<T>  {
      aux = aux.getNext();
      }
      aux.setNext(newNode);
+     size ++;
      return true;
     }
     
@@ -120,24 +122,61 @@ public class SimplyLinkedList<T> implements Operations<T>  {
     aux = aux.getNext();
     i++;  
     }
-     newNode.setNext(aux.getNext().setNext(aux));
-     aux
+     newNode.setNext(aux.getNext());
+     aux.setNext(newNode);
+     size ++;
      return true;
     }
-    
     @Override
     public boolean setValueAtPosition(int position, T newValue) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported"); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public T remove(int position) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   
+    public T remove(int pos) throws Exception {
+     int cont = 1;
+     Node<T> aux = head;
+     Node<T> aix = null;
+        if(!isValidPosition(pos)){
+            return null;
+        } 
+        if(pos != 1){
+     while(cont < pos){
+         aix = aux;
+     aux = aux.getNext();
+     pos++;
+     } 
+     aix.setNext(aux.getNext());
+     size --;
+     return aux.getValue();
+        }
+        else {
+        head = aux.getNext();
+        size --;
+        return aux.getValue(); 
+        }
     }
 
-    @Override
-    public int remove(T value) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
+    public int remove(T value) throws Exception {
+    int cont = 0;
+    Node<T> aix = null;
+    Node<T> aux = head;
+    while(cont <= size){
+    if(aix.getValue() == value){
+        break;
+    }
+    aix = aux;
+    aux = aux.getNext();
+    
+    }
+    if(aix.getValue() != value && cont == size){
+         throw new Exception("" + value + " is not on the list");
+     
+    }
+    aix.setNext(aux.getNext());
+    size --;
+    return cont;
+    }
+
 }
