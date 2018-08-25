@@ -8,7 +8,7 @@ public class Viewer extends JFrame {
      * Creates new form Viewer
      */
     private String title;
-    
+
     public Viewer(String title) {
         this.title = title + " Viewer";
         initComponents();
@@ -48,20 +48,23 @@ public class Viewer extends JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void loadPanel(){
-        switch(title){
+    private void loadPanel() {
+        switch (title) {
             case "Sequential List Viewer":
-                contentPanel.add(new SequentialListViewer());   
+                contentPanel.add(new SequentialListViewer());
                 break;
             case "Queue Viewer":
                 contentPanel.add(new QueueViewer());
+                break;
+            case "Stack Viewer":
+                contentPanel.add(new StackViewer());
                 break;
             default:
                 break;
         }
         contentPanel.revalidate();
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCreate;
     private javax.swing.JPanel contentPanel;

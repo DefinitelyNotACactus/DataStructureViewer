@@ -136,8 +136,10 @@
         <Component class="javax.swing.JButton" name="btStack">
           <Properties>
             <Property name="text" type="java.lang.String" value="Stack"/>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btStackActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btQueue">
           <Properties>

@@ -75,7 +75,11 @@ public class Launcher extends JFrame {
         btDLinkedList.setEnabled(false);
 
         btStack.setText("Stack");
-        btStack.setEnabled(false);
+        btStack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btStackActionPerformed(evt);
+            }
+        });
 
         btQueue.setText("Queue");
         btQueue.addActionListener(new java.awt.event.ActionListener() {
@@ -164,7 +168,12 @@ public class Launcher extends JFrame {
         new Viewer("Queue").setVisible(true);
         dispose();
     }//GEN-LAST:event_btQueueActionPerformed
-    
+
+    private void btStackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btStackActionPerformed
+        new Viewer("Stack").setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btStackActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -174,22 +183,22 @@ public class Launcher extends JFrame {
         });
     }
 
-    private void setTheme(){
+    private void setTheme() {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-                Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }   
-    
-    private void epilepsy(){
+    }
+
+    private void epilepsy() {
         Random rand = new Random();
         titleLabel.setText("FUCK THIS CLASS");
-        new Timer().scheduleAtFixedRate(new TimerTask(){          
+        new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
-            public void run(){           
+            public void run() {
                 contentPanel.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
                 btDLinkedList.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
                 btGraphs.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
@@ -211,7 +220,7 @@ public class Launcher extends JFrame {
             }
         }, 0, 500);
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btDLinkedList;
     private javax.swing.JButton btGraphs;
