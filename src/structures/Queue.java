@@ -52,11 +52,12 @@ public class Queue<T> {
     public T getFirst() throws Exception {
         if(isEmpty()){
             throw new Exception("The queue is empty!");
+        } else {
+            return data[start];   
         }
-        return data[start];   
     }
     
-    public boolean insert(T newElement) throws Exception {
+    public boolean enqueue(T newElement) throws Exception {
         if(isFull()){
             throw new Exception("The queue is full!");
         } else {
@@ -67,7 +68,7 @@ public class Queue<T> {
         }
     }
     
-    public T remove() throws Exception {
+    public T dequeue() throws Exception {
         if(isEmpty()){
             throw new Exception("The queue is empty!");
         } else {

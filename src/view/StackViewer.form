@@ -19,11 +19,12 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="optionsPanel" alignment="1" max="32767" attributes="0"/>
-                  <Component id="operationsPanel" alignment="0" pref="780" max="32767" attributes="0"/>
-                  <Component id="statusLabel" alignment="0" max="32767" attributes="0"/>
-                  <Component id="scrollPane" alignment="0" pref="780" max="32767" attributes="0"/>
+                  <Component id="statusLabel" max="32767" attributes="0"/>
+                  <Component id="optionsPanel" alignment="0" pref="555" max="32767" attributes="0"/>
+                  <Component id="operationsPanel" max="32767" attributes="0"/>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="scrollPane" min="-2" pref="219" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -32,13 +33,16 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="optionsPanel" min="-2" pref="50" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="operationsPanel" min="-2" pref="50" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="scrollPane" min="-2" pref="219" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="statusLabel" min="-2" pref="40" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="scrollPane" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="optionsPanel" min="-2" pref="50" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="operationsPanel" min="-2" pref="50" max="-2" attributes="0"/>
+                      <EmptySpace pref="302" max="32767" attributes="0"/>
+                      <Component id="statusLabel" min="-2" pref="40" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -89,7 +93,7 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btPush">
           <Properties>
-            <Property name="text" type="java.lang.String" value="push"/>
+            <Property name="text" type="java.lang.String" value="Push"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
@@ -98,7 +102,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btpop">
           <Properties>
-            <Property name="text" type="java.lang.String" value="pop"/>
+            <Property name="text" type="java.lang.String" value="Pop"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
@@ -109,8 +113,8 @@
     </Container>
     <Container class="javax.swing.JScrollPane" name="scrollPane">
       <Properties>
+        <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
-        <Property name="verticalScrollBarPolicy" type="int" value="21"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JScrollPane()"/>

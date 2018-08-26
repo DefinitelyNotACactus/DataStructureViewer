@@ -1,19 +1,19 @@
 package structures;
 
-public class Stack<T> extends SequentialList<T> {
+public class Stack<T> {
 
     private T[] data;
     private int top;
     private int size;
 
     public Stack() {
-        top = -1;
+        top = 0;
         size = 0;
         data = (T[]) new Object[100];
     }
 
     public Stack(int maxSize) {
-        top = -1;
+        top = 0;
         size = 0;
         data = (T[]) new Object[maxSize];
     }
@@ -26,8 +26,23 @@ public class Stack<T> extends SequentialList<T> {
 
         }
     }
-
-    @Override
+    
+    public boolean isEmpty() {
+        return (size == 0);
+    }
+    
+    public boolean isFull() {
+        return (size == data.length);
+    }
+    
+    public int getSize() {
+        return size;
+    }
+    
+    public int getMaxSize() {
+        return data.length;
+    }
+    
     public boolean isValidPosition(int position) {
         return (position >= 1 && position <= data.length);
     }
@@ -36,8 +51,8 @@ public class Stack<T> extends SequentialList<T> {
         if (isFull()) {
             throw new Exception("The stack is full!");
         } else {
-            top++;
             data[top] = newElement;
+            top++;
             size++;
             return true;
         }
@@ -47,38 +62,19 @@ public class Stack<T> extends SequentialList<T> {
         if (isEmpty()) {
             throw new Exception("The stack is empty!");
         } else {
-            T aux = data[top];
-            data[top] = null;
             top--;
+            T aux = data[top];
+            data[top] = null;      
             size--;
             return aux;
         }
     }
-
-    @Override
-    public boolean addValue(int position, T value) {
-        return false;
-    }
     
-    @Override
     public T getValueAtPosition(int position) throws Exception {
-        throw new Exception("only possible get the top value/position");
-    }
-    
-    @Override
-    public int getPositionByValue(T value) throws Exception {
-        throw new Exception("only possible get the top value/position");
-    }
-    @Override
-    public boolean setValueAtPosition(int position, T newValue) {
-        return false;
-    }
-    @Override
-    public T remove(int position) throws Exception {
-        throw new Exception("only possible remove the top value");
-    }
-    @Override
-    public int remove(T value) throws Exception {
-        throw new Exception("only possible remove the top value");  
+        if(isValidPosition(position)){
+            return data[position-1];
+        } else {
+            throw new Exception("Invalid Position");
+        }
     }
 }

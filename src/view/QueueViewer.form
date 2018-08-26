@@ -89,7 +89,7 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btAdd">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Add"/>
+            <Property name="text" type="java.lang.String" value="Enqueue"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
@@ -98,7 +98,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btRemove">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Remove"/>
+            <Property name="text" type="java.lang.String" value="Dequeue"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>

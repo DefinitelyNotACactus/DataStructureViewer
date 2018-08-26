@@ -2,7 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.GridLayout;
+import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -61,7 +61,7 @@ public class StackViewer extends JPanel {
 
         operationsPanel.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
-        btPush.setText("push");
+        btPush.setText("Push");
         btPush.setEnabled(false);
         btPush.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,7 +70,7 @@ public class StackViewer extends JPanel {
         });
         operationsPanel.add(btPush);
 
-        btpop.setText("pop");
+        btpop.setText("Pop");
         btpop.setEnabled(false);
         btpop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,8 +79,8 @@ public class StackViewer extends JPanel {
         });
         operationsPanel.add(btpop);
 
+        scrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setToolTipText("");
-        scrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         statusLabel.setText("Empty");
 
@@ -91,23 +91,25 @@ public class StackViewer extends JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(optionsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(operationsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
-                    .addComponent(statusLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE))
+                    .addComponent(statusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(optionsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+                    .addComponent(operationsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(optionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(operationsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPane)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(optionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(operationsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 302, Short.MAX_VALUE)
+                        .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -130,7 +132,6 @@ public class StackViewer extends JPanel {
             statusLabel.setText("Current Size: " + stack.getSize() + "         Maximum Size: " + stack.getMaxSize());
             btPush.setEnabled(true);
             btpop.setEnabled(true);
-
             revalidate();
         } catch (NumberFormatException ex) {
             //ex.printStackTrace();
@@ -171,47 +172,20 @@ public class StackViewer extends JPanel {
 
     private void listElements() {
         Container cont = new Container();
-        Element element;
-        for (int i = 1; i <= stack.getMaxSize(); i++) {
+        Element element;        
+        for (int i = stack.getSize(); i >= 1; i--) {
             try {
                 element = new Element("" + stack.getValueAtPosition(i));
                 element.setToolTipText("Position " + i);
-                cont.add(element);
-            } catch (Exception ex) {
-                element = new Element("null");
-                element.setToolTipText("Position " + i);
-                cont.add(element);
-            }
-        }
-        cont.setLayout(new GridLayout());
-        scrollPane.getViewport().setView(cont);
-        statusLabel.setText("Current Size: " + stack.getSize() + "         Maximum Size: " + stack.getMaxSize());
-    }
-
-    private void listElements(int number, boolean position) {
-        Container cont = new Container();
-        for (int i = 1; i <= stack.getMaxSize(); i++) {
-            Element element;
-            try {
-                int value = stack.getValueAtPosition(i);
-                element = new Element("" + stack.getValueAtPosition(i));
-                cont.add(element);
-                if (position) {
-                    if (i == number) {
-                        element.setBorderColor(Color.yellow);
-                    }
-                } else {
-                    if (value == number) {
-                        element.setBorderColor(Color.yellow);
-                    }
+                if(i == stack.getTop()){
+                    element.setBorderColor(Color.BLUE);
+                    element.setToolTipText("Top");
                 }
-            } catch (Exception ex) {
-                element = new Element("null");
                 cont.add(element);
+            } catch (Exception ex) {
             }
-            cont.add(element);
         }
-        cont.setLayout(new GridLayout());
+        cont.setLayout(new BoxLayout(cont, BoxLayout.PAGE_AXIS));
         scrollPane.getViewport().setView(cont);
         statusLabel.setText("Current Size: " + stack.getSize() + "         Maximum Size: " + stack.getMaxSize());
     }

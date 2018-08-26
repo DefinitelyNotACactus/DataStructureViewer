@@ -60,7 +60,7 @@ public class QueueViewer extends JPanel {
 
         operationsPanel.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
-        btAdd.setText("Add");
+        btAdd.setText("Enqueue");
         btAdd.setEnabled(false);
         btAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,7 +69,7 @@ public class QueueViewer extends JPanel {
         });
         operationsPanel.add(btAdd);
 
-        btRemove.setText("Remove");
+        btRemove.setText("Dequeue");
         btRemove.setEnabled(false);
         btRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,7 +146,7 @@ public class QueueViewer extends JPanel {
             }
             value = Integer.parseInt(input);
             try{
-                queue.insert(value);
+                queue.enqueue(value);
                 listElements();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -159,7 +159,7 @@ public class QueueViewer extends JPanel {
 
     private void btRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoveActionPerformed
         try{
-            Element element = new Element(""+ queue.remove());
+            Element element = new Element(""+ queue.dequeue());
             element.setBorderColor(Color.BLUE);
             JOptionPane.showMessageDialog(this, element, "Value at the queue start", JOptionPane.PLAIN_MESSAGE);
             listElements();
