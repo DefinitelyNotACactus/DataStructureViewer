@@ -332,7 +332,9 @@ public class SequentialListViewer extends JPanel {
             }
         }     
         cont.setLayout(new GridLayout());
+        int sValue = scrollPane.getHorizontalScrollBar().getValue();
         scrollPane.getViewport().setView(cont);
+        scrollPane.getHorizontalScrollBar().setValue(sValue);
         statusLabel.setText("Current Size: " + list.getSize() + "         Maximum Size: " + list.getMaxSize());
     }
     
@@ -360,7 +362,9 @@ public class SequentialListViewer extends JPanel {
             cont.add(element);
         }     
         cont.setLayout(new GridLayout());
+        int sValue = scrollPane.getHorizontalScrollBar().getValue();
         scrollPane.getViewport().setView(cont);
+        scrollPane.getHorizontalScrollBar().setValue(sValue);
         statusLabel.setText("Current Size: " + list.getSize() + "         Maximum Size: " + list.getMaxSize());
     }
     

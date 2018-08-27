@@ -11,12 +11,12 @@ import static javafx.scene.input.KeyCode.T;
  *
  * @author Gabriel Arnaud
  */
-public class SimplyLinkedList<T> implements Operations<T> {
+public class SinglyLinkedList<T> implements Operations<T> {
 
     private Node<T> head;
     private int size;
 
-    public SimplyLinkedList() {
+    public SinglyLinkedList() {
         head = null;
         size = 0;
     }

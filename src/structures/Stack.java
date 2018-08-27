@@ -44,7 +44,7 @@ public class Stack<T> {
     }
     
     public boolean isValidPosition(int position) {
-        return (position >= 1 && position <= data.length);
+        return (position >= 1 && position <= size);
     }
 
     public boolean push(T newElement) throws Exception {

@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -60,6 +61,10 @@ public class Element extends JPanel {
 
     public void setBorderColor(Color newColor){
         setBackground(newColor);
+    }
+    
+    public JLabel getLabel(){
+        return jLabel1;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -11,7 +11,7 @@ import structures.Stack;
 public class StackViewer extends JPanel {
 
     private Stack<Integer> stack;
-
+    
     /**
      * Creates new form SequentialList
      */
@@ -81,6 +81,7 @@ public class StackViewer extends JPanel {
 
         scrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setToolTipText("");
+        scrollPane.setAutoscrolls(true);
 
         statusLabel.setText("Empty");
 
@@ -173,7 +174,7 @@ public class StackViewer extends JPanel {
     private void listElements() {
         Container cont = new Container();
         Element element;        
-        for (int i = stack.getSize(); i >= 1; i--) {
+        for (int i = stack.getMaxSize(); i >= 1; i--) {
             try {
                 element = new Element("" + stack.getValueAtPosition(i));
                 element.setToolTipText("Position " + i);
@@ -183,10 +184,16 @@ public class StackViewer extends JPanel {
                 }
                 cont.add(element);
             } catch (Exception ex) {
+                element = new Element("");
+                //element.setBackground(new Color(240, 240, 240));
+                //element.getLabel().setVisible(false);
+                cont.add(element);
             }
         }
-        cont.setLayout(new BoxLayout(cont, BoxLayout.PAGE_AXIS));
+        cont.setLayout(new BoxLayout(cont, BoxLayout.Y_AXIS));
+        int sValue = scrollPane.getVerticalScrollBar().getValue();
         scrollPane.getViewport().setView(cont);
+        scrollPane.getVerticalScrollBar().setValue(sValue);
         statusLabel.setText("Current Size: " + stack.getSize() + "         Maximum Size: " + stack.getMaxSize());
     }
 

@@ -9,15 +9,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import structures.Node;
-import structures.SimplyLinkedList;
+import structures.SinglyLinkedList;
 
-public class SinglyListViewer extends JPanel {
+public class LinkedListViewer extends JPanel {
 
-    private SimplyLinkedList<Integer> list;
+    private SinglyLinkedList<Integer> list;
     /**
      * Creates new form SequentialList
      */
-    public SinglyListViewer() {
+    public LinkedListViewer() {
         initComponents();
     }
 
@@ -135,7 +135,7 @@ public class SinglyListViewer extends JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNewActionPerformed
-            list = new SimplyLinkedList<>();
+            list = new SinglyLinkedList<>();
             listElements();
             statusLabel.setText("Current Size: " + list.getSize());
             btAdd.setEnabled(true);
@@ -304,7 +304,7 @@ public class SinglyListViewer extends JPanel {
         } catch (NumberFormatException ex){
             JOptionPane.showMessageDialog(this, "The position and value must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex){
-            
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btModifyActionPerformed
    
@@ -339,50 +339,10 @@ public class SinglyListViewer extends JPanel {
             }
         }     
         cont.setLayout(new GridLayout());
+        int sValue = scrollPane.getHorizontalScrollBar().getValue();
         scrollPane.getViewport().setView(cont);
+        scrollPane.getHorizontalScrollBar().setValue(sValue);
         statusLabel.setText("Current Size: " + list.getSize());
-    }
-    
-    private void listElements(int number, boolean position){
-        Container cont = new Container();
-        Element element;
-        JPanel element2;
-        JLabel label;
-        Node<Integer> node;
-        for(int i = 1; i <= list.getSize(); i++){
-            try {
-                node = list.getNodeAtPosition(i);
-                int value = node.getValue();
-                element = new Element("" + node.getValue());
-                if(node.getNext() != null){
-                    element2 = new JPanel();
-                    label = new JLabel();
-                    label.setIcon(new ImageIcon(getClass().getResource("/assets/arrow.png")));
-                    element2.add(label);
-                } else {
-                    element2 = new JPanel();
-                    label = new JLabel();
-                    label.setText("null");
-                    element2.add(label);
-                }
-                if(position){
-                    if(i == number){
-                        element.setBorderColor(Color.yellow);
-                    }
-                } else {
-                    if(value == number){
-                        element.setBorderColor(Color.yellow);
-                    }
-                }
-                element.setToolTipText("Position " + i);
-                cont.add(element);
-                cont.add(element2);
-            }catch(Exception ex){
-                element = new Element("null");
-                element.setToolTipText("Position " + i);
-                cont.add(element);
-            }
-        }     
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

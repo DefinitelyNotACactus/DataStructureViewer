@@ -187,7 +187,9 @@ public class QueueViewer extends JPanel {
             }
         }     
         cont.setLayout(new GridLayout());
+        int sValue = scrollPane.getHorizontalScrollBar().getValue();
         scrollPane.getViewport().setView(cont);
+        scrollPane.getHorizontalScrollBar().setValue(sValue);
         statusLabel.setText("Current Size: " + queue.getSize() + "         Maximum Size: " + queue.getMaxSize());
     }
     
