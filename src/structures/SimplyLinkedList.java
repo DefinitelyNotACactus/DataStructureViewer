@@ -5,32 +5,35 @@
  */
 package structures;
 
+import static javafx.scene.input.KeyCode.T;
+
 /**
  *
  * @author Gabriel Arnaud
  */
-public class SimplyLinkedList<T> implements Operations<T>  {
+public class SimplyLinkedList<T> implements Operations<T> {
+
     private Node<T> head;
     private int size;
-    
-    public SimplyLinkedList(){
-    head = null;
-    size = 0;
+
+    public SimplyLinkedList() {
+        head = null;
+        size = 0;
     }
 
     @Override
     public boolean isEmpty() {
-     return(size == 0);
+        return (size == 0);
     }
 
     @Override
     public boolean isFull() {
-       return false; 
+        return false;
     }
 
     @Override
     public int getSize() {
-       return size;
+        return size;
     }
 
     @Override
@@ -40,143 +43,142 @@ public class SimplyLinkedList<T> implements Operations<T>  {
 
     @Override
     public boolean isValidPosition(int pos) {
-    return(pos>0 && pos<=size);    
+        return (pos >= 1 && pos <= size + 1);
     }
 
     @Override
     public boolean addValue(int pos, T value) {
-        if(!isValidPosition(pos)){
+        if (!isValidPosition(pos)) {
             return false;
-        }     
-        if(pos == 1){
-         return addValueAtBeggining(value);
         }
-        else{
-        if(pos == size + 1){
-         return addValueAtEnding(value);
+        if (pos == 1) {
+            return addValueAtBeggining(value);
+        } else if (pos == size + 1) {
+            return addValueAtEnding(value);
+        } else {
+            return addValueAtMiddle(pos, value);
         }
-        else{
-         return addValueAtMiddle(pos ,value);
-        }
-        }
-       
     }
 
     @Override
-    public T getValueAtPosition(int pos)  throws Exception {
-      int con = 1;
-      Node<T> aux = head;
-      if(!isValidPosition(pos)){
+    public T getValueAtPosition(int pos) throws Exception {
+        int con = 1;
+        Node<T> aux = head;
+        if (!isValidPosition(pos)) {
             return null;
-        } 
-      while(con < pos){
-      aux = aux.getNext();
-      con++;
-      }
-      return aux.getValue();
+        }
+        while (con < pos) {
+            aux = aux.getNext();
+            con++;
+        }
+        return aux.getValue();
+    }
+
+    public Node getNodeAtPosition(int pos) {
+        int con = 1;
+        Node<T> aux = head;
+        if (!isValidPosition(pos)) {
+            return null;
+        }
+        while (con < pos) {
+            aux = aux.getNext();
+            con++;
+        }
+        return aux;
     }
 
     @Override
     public int getPositionByValue(T value) throws Exception {
-      int con = 1;
-      Node<T> aux = head; 
-     while(con <= size){
-     if(aux.getValue() == value){
-     break;
-     }    
-     aux = aux.getNext();
-     con++;
-     }
-     if(aux.getValue() != value && con == size){
-         throw new Exception("" + value + " is not on the list");
-     }
-     return con;
+        int con = 1;
+        Node<T> aux = head;
+        while (con <= size) {
+            if (aux.getValue() == value) {
+                break;
+            }
+            aux = aux.getNext();
+            con++;
+        }
+        if (aux.getValue() != value && con == size) {
+            throw new Exception("" + value + " is not on the list");
+        }
+        return con;
     }
 
-    
-    public boolean addValueAtBeggining(T value){
-     Node<T> newNode = new Node<>();
-     newNode.setNext(head);
-     head.setNext(newNode);
-     size ++;
-     return true;
+    public boolean addValueAtBeggining(T value) {
+        Node<T> newNode = new Node<>(value);
+        newNode.setNext(head);
+        head = newNode;
+        size++;
+        return true;
     }
-    
-    public boolean addValueAtEnding(T value){
-     Node<T> newNode = new Node<>();
-     newNode.setNext(null);
-      Node<T> aux = head;
-     while(aux.getValue()!= null){
-     aux = aux.getNext();
-     }
-     aux.setNext(newNode);
-     size ++;
-     return true;
+
+    public boolean addValueAtEnding(T value) {
+        Node<T> newNode = new Node<>(value);
+        newNode.setNext(null);
+        Node<T> aux = head;
+        while (aux.getNext() != null) {
+            aux = aux.getNext();
+        }
+        aux.setNext(newNode);
+        size++;
+        return true;
     }
-    
-    public boolean addValueAtMiddle(int pos,T value){
-     Node<T> newNode = new Node<>();
-     Node<T> aux = head;
-     int i = 1;
-     while(i != pos - 1){
-    aux = aux.getNext();
-    i++;  
+
+    public boolean addValueAtMiddle(int pos, T value) {
+        Node<T> newNode = new Node<>(value);
+        Node<T> aux = head;
+        int i = 1;
+        while (i != pos - 1) {
+            aux = aux.getNext();
+            i++;
+        }
+        newNode.setNext(aux.getNext());
+        aux.setNext(newNode);
+        size++;
+        return true;
     }
-     newNode.setNext(aux.getNext());
-     aux.setNext(newNode);
-     size ++;
-     return true;
-    }
+
     @Override
     public boolean setValueAtPosition(int position, T newValue) {
-        throw new UnsupportedOperationException("Not supported"); //To change body of generated methods, choose Tools | Templates.
+        if (isValidPosition(position)) {
+            Node<T> aux = head;
+            for (int i = 0; i < position - 1; i++) {
+                aux = aux.getNext();
+            }
+            aux.setValue(newValue);
+            return true;
+        } else {
+            return false;
+        }
     }
 
-   
     public T remove(int pos) throws Exception {
-     int cont = 1;
-     Node<T> aux = head;
-     Node<T> aix = null;
-        if(!isValidPosition(pos)){
+        int cont = 1;
+        Node<T> aux = head;
+        Node<T> aix = null;
+        if (!isValidPosition(pos)) {
             return null;
-        } 
-        if(pos != 1){
-     while(cont < pos){
-         aix = aux;
-     aux = aux.getNext();
-     pos++;
-     } 
-     aix.setNext(aux.getNext());
-     size --;
-     return aux.getValue();
         }
-        else {
-        head = aux.getNext();
-        size --;
-        return aux.getValue(); 
+        if (pos != 1) {
+            while (cont < pos) {
+                aix = aux;
+                aux = aux.getNext();
+                cont++;
+            }
+            aix.setNext(aux.getNext());
+            size--;
+            return aux.getValue();
+        } else {
+            head = aux.getNext();
+            size--;
+            return aux.getValue();
         }
     }
 
-    
     public int remove(T value) throws Exception {
-    int cont = 0;
-    Node<T> aix = null;
-    Node<T> aux = head;
-    while(cont <= size){
-    if(aix.getValue() == value){
-        break;
-    }
-    aix = aux;
-    aux = aux.getNext();
-    
-    }
-    if(aix.getValue() != value && cont == size){
-         throw new Exception("" + value + " is not on the list");
-     
-    }
-    aix.setNext(aux.getNext());
-    size --;
-    return cont;
+        int pos = getPositionByValue(value);
+        remove(pos);
+        return pos;
     }
 
 }

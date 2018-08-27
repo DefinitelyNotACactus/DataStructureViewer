@@ -54,6 +54,9 @@ public class Viewer extends JFrame {
             case "Sequential List Viewer":
                 contentPanel.add(new SequentialListViewer());
                 break;
+            case "Linked List Viewer":
+                contentPanel.add(new SinglyListViewer());
+                break;
             case "Queue Viewer":
                 contentPanel.add(new QueueViewer());
                 break;

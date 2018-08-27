@@ -64,7 +64,6 @@ public class Launcher extends JFrame {
         });
 
         btLinkedList.setText("Singly Linked List");
-        btLinkedList.setEnabled(false);
         btLinkedList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btLinkedListActionPerformed(evt);

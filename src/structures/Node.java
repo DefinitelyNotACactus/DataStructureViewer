@@ -13,9 +13,9 @@ public class Node<T> {
     Node next;
     T value;
     
-    public Node()
-    {
-    next = null;
+    public Node(T value){
+        next = null;
+        this.value = value;
     }
     
     public void setValue(T value)
