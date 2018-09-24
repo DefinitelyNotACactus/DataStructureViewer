@@ -1,11 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package structures;
-
-import static javafx.scene.input.KeyCode.T;
 
 /**
  *
@@ -47,9 +40,9 @@ public class SinglyLinkedList<T> implements Operations<T> {
     }
 
     @Override
-    public boolean addValue(int pos, T value) {
+    public boolean addValue(int pos, T value) throws Exception {
         if (!isValidPosition(pos)) {
-            return false;
+            throw new Exception("Invalid Position!");
         }
         if (pos == 1) {
             return addValueAtBeggining(value);
@@ -65,7 +58,7 @@ public class SinglyLinkedList<T> implements Operations<T> {
         int con = 1;
         Node<T> aux = head;
         if (!isValidPosition(pos)) {
-            return null;
+            throw new Exception("Invalid Position!");
         }
         while (con < pos) {
             aux = aux.getNext();
@@ -74,11 +67,11 @@ public class SinglyLinkedList<T> implements Operations<T> {
         return aux.getValue();
     }
 
-    public Node getNodeAtPosition(int pos) {
+    public Node getNodeAtPosition(int pos) throws Exception {
         int con = 1;
         Node<T> aux = head;
         if (!isValidPosition(pos)) {
-            return null;
+            throw new Exception("Invalid Position!");
         }
         while (con < pos) {
             aux = aux.getNext();
@@ -152,33 +145,37 @@ public class SinglyLinkedList<T> implements Operations<T> {
         }
     }
 
+    @Override
     public T remove(int pos) throws Exception {
         int cont = 1;
         Node<T> aux = head;
         Node<T> aix = null;
-        if (!isValidPosition(pos)) {
-            return null;
-        }
-        if (pos != 1) {
-            while (cont < pos) {
-                aix = aux;
-                aux = aux.getNext();
-                cont++;
-            }
-            aix.setNext(aux.getNext());
-            size--;
-            return aux.getValue();
+        if(isEmpty()){
+            throw new Exception("The list is empty");
+        } else if(!isValidPosition(pos)) {
+            throw new Exception("Invalid Position!");
         } else {
-            head = aux.getNext();
-            size--;
-            return aux.getValue();
+            if (pos != 1) {
+                while (cont < pos) {
+                    aix = aux;
+                    aux = aux.getNext();
+                    cont++;
+                }
+                aix.setNext(aux.getNext());
+                size--;
+                return aux.getValue();
+            } else {
+                head = aux.getNext();
+                size--;
+                return aux.getValue();
+            }
         }
     }
 
+    @Override
     public int remove(T value) throws Exception {
         int pos = getPositionByValue(value);
         remove(pos);
         return pos;
     }
-
 }

@@ -25,37 +25,36 @@ public class Element extends JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        elementLabel = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(0, 0, 0));
-        setMaximumSize(new java.awt.Dimension(219, 219));
-        setMinimumSize(new java.awt.Dimension(200, 200));
-        setPreferredSize(new java.awt.Dimension(200, 200));
+        setMaximumSize(new java.awt.Dimension(198, 198));
+        setMinimumSize(new java.awt.Dimension(198, 198));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
-        jLabel1.setText(value);
-        jLabel1.setToolTipText(value);
-        jLabel1.setMaximumSize(new java.awt.Dimension(58, 58));
-        jLabel1.setMinimumSize(new java.awt.Dimension(58, 58));
-        jLabel1.setOpaque(true);
-        jLabel1.setPreferredSize(new java.awt.Dimension(58, 58));
-        jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
+        elementLabel.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        elementLabel.setText(value);
+        elementLabel.setToolTipText(value);
+        elementLabel.setMaximumSize(new java.awt.Dimension(178, 178));
+        elementLabel.setMinimumSize(new java.awt.Dimension(178, 178));
+        elementLabel.setOpaque(true);
+        elementLabel.setPreferredSize(new java.awt.Dimension(178, 178));
+        elementLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(10, 10, 10)
+                .addComponent(elementLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(elementLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -64,11 +63,11 @@ public class Element extends JPanel {
     }
     
     public JLabel getLabel(){
-        return jLabel1;
+        return elementLabel;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel elementLabel;
     // End of variables declaration//GEN-END:variables
 
 }

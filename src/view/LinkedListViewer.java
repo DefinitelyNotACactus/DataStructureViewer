@@ -3,6 +3,8 @@ package view;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
+import java.awt.Image;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -127,7 +129,7 @@ public class LinkedListViewer extends JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(operationsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -147,7 +149,7 @@ public class LinkedListViewer extends JPanel {
 
     private void btAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddActionPerformed
         int value = 0, position = 0, selection;
-        String options[] = {"Beginning", "Ending", "In a given position", "Cancel"}, input;
+        String options[] = {"Beginning", "End", "In a given position", "Cancel"}, input;
         selection = JOptionPane.showOptionDialog(this, "Where you would like to add an element", "Info", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         if(selection >= 0 && selection <= 2){
             try{
@@ -182,11 +184,13 @@ public class LinkedListViewer extends JPanel {
                 default:
                     break;
             }
-            if(!list.addValue(position, value)){
-                JOptionPane.showMessageDialog(this, "Invalid position or the list is full!", "Info", JOptionPane.WARNING_MESSAGE);
-            }
+            try{
+                list.addValue(position, value);
+                listElements();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Info", JOptionPane.WARNING_MESSAGE);
+            }     
         }
-        listElements();
     }//GEN-LAST:event_btAddActionPerformed
 
     private void btSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchActionPerformed
@@ -200,12 +204,10 @@ public class LinkedListViewer extends JPanel {
                     if(input == null){
                         return;
                     }
-                    int value = Integer.parseInt(input);
-                   
+                    int value = Integer.parseInt(input);                
                     try{
                         list.getPositionByValue(value);
-                        JOptionPane.showMessageDialog(this, new Element(""+ value), "Value at position " + list.getPositionByValue(value), JOptionPane.PLAIN_MESSAGE);
-                        listElements();
+                        listElements(value, false);
                     }catch(Exception ex){
                         JOptionPane.showMessageDialog(this, ex.getMessage(), "Info", JOptionPane.WARNING_MESSAGE);
                     }
@@ -223,7 +225,7 @@ public class LinkedListViewer extends JPanel {
                     try{
                         list.getValueAtPosition(position);
                         JOptionPane.showMessageDialog(this, new Element(""+ list.getValueAtPosition(position)), "Value at position " + position, JOptionPane.PLAIN_MESSAGE);
-                        listElements();
+                        listElements(position, true);
                     }catch(Exception ex){
                         JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }                
@@ -294,7 +296,7 @@ public class LinkedListViewer extends JPanel {
             }
             int pos = Integer.parseInt(input);
             if(!list.isValidPosition(pos)){
-                throw new Exception();
+                throw new Exception("Invalid Position!");
             } else {
                 input = JOptionPane.showInputDialog(this, "Insert the new value for position " + pos + " : ", "Info", JOptionPane.QUESTION_MESSAGE);
                 int newValue = Integer.parseInt(input);
@@ -311,34 +313,53 @@ public class LinkedListViewer extends JPanel {
     private void listElements(){
         Container cont = new Container();
         Element element;
-        JPanel element2;
-        JLabel label;
+        Arrow arrow;
         Node node;
         for(int i = 1; i <= list.getSize(); i++){
             try {
                 node = list.getNodeAtPosition(i);
                 element = new Element("" + node.getValue());
-                if(node.getNext() != null){
-                    element2 = new JPanel();
-                    label = new JLabel();
-                    label.setIcon(new ImageIcon(getClass().getResource("/assets/arrow.png")));
-                    element2.add(label);
-                } else {
-                    element2 = new JPanel();
-                    label = new JLabel();
-                    label.setText("null");
-                    element2.add(label);
-                }
+                arrow = new Arrow(node.hasNext());
                 element.setToolTipText("Position " + i);
                 cont.add(element);
-                cont.add(element2);
+                cont.add(arrow);
             }catch(Exception ex){
-                element = new Element("null");
-                element.setToolTipText("Position " + i);
-                cont.add(element);
             }
         }     
-        cont.setLayout(new GridLayout());
+        cont.setLayout(new BoxLayout(cont, BoxLayout.X_AXIS));
+        int sValue = scrollPane.getHorizontalScrollBar().getValue();
+        scrollPane.getViewport().setView(cont);
+        scrollPane.getHorizontalScrollBar().setValue(sValue);
+        statusLabel.setText("Current Size: " + list.getSize());
+    }
+    
+    private void listElements(int number, boolean position){
+        Container cont = new Container();
+        Element element;
+        Arrow arrow;
+        Node node;
+        for(int i = 1; i <= list.getSize(); i++){
+            try {
+                node = list.getNodeAtPosition(i);
+                int value = Integer.parseInt("" + node.getValue());
+                element = new Element("" + value);
+                arrow = new Arrow(node.hasNext());
+                element.setToolTipText("Position " + i);
+                cont.add(element);
+                if(position){
+                    if(i == number){
+                        element.setBorderColor(Color.yellow);
+                    }
+                } else {
+                    if(value == number){
+                        element.setBorderColor(Color.yellow);
+                    }
+                }
+                cont.add(arrow);
+            }catch(Exception ex){
+            }
+        }     
+        cont.setLayout(new BoxLayout(cont, BoxLayout.X_AXIS));
         int sValue = scrollPane.getHorizontalScrollBar().getValue();
         scrollPane.getViewport().setView(cont);
         scrollPane.getHorizontalScrollBar().setValue(sValue);

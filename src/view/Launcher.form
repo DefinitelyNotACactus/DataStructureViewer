@@ -52,44 +52,41 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="titleLabel" pref="380" max="32767" attributes="0"/>
-                      <Component id="btSeqList" max="32767" attributes="0"/>
-                      <Component id="btLinkedList" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btDLinkedList" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btStack" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btQueue" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btTrees" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btGraphs" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="titleLabel" max="32767" attributes="0"/>
+                      <Component id="btSeqList" alignment="0" pref="380" max="32767" attributes="0"/>
+                      <Component id="btLinkedList" alignment="0" pref="380" max="32767" attributes="0"/>
+                      <Component id="btStack" alignment="0" pref="380" max="32767" attributes="0"/>
+                      <Component id="btQueue" alignment="0" pref="380" max="32767" attributes="0"/>
+                      <Component id="btTrees" alignment="0" pref="380" max="32767" attributes="0"/>
+                      <Component id="btGraphs" alignment="0" pref="380" max="32767" attributes="0"/>
+                      <Component id="versionLabel" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="titleLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                  <Component id="btSeqList" min="-2" pref="40" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btLinkedList" min="-2" pref="40" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btDLinkedList" min="-2" pref="40" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btStack" min="-2" pref="40" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btQueue" min="-2" pref="40" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btTrees" min="-2" pref="40" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btGraphs" min="-2" pref="40" max="-2" attributes="0"/>
-                  <EmptySpace pref="39" max="32767" attributes="0"/>
-                  <Component id="jLabel1" min="-2" pref="40" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btSeqList" pref="40" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="btLinkedList" pref="40" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="btStack" pref="40" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="btQueue" pref="40" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="btTrees" pref="40" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="btGraphs" pref="40" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
+                  <Component id="versionLabel" min="-2" pref="40" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -103,8 +100,12 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="33" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Data Structure Viewer"/>
-            <Property name="toolTipText" type="java.lang.String" value="Data Structure Project"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Constants.PORTUGUESE ? Constants.LAUNCHER_PT[0] : Constants.LAUNCHER_EN[0]" type="code"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Constants.PORTUGUESE ? Constants.LAUNCHER_PT[1] : Constants.LAUNCHER_EN[1]" type="code"/>
+            </Property>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="titleLabel.setHorizontalAlignment(SwingConstants.CENTER);"/>
@@ -112,7 +113,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btSeqList">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Sequential List"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Constants.PORTUGUESE ? Constants.LAUNCHER_PT[2] : Constants.LAUNCHER_EN[2]" type="code"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSeqListActionPerformed"/>
@@ -120,21 +123,19 @@
         </Component>
         <Component class="javax.swing.JButton" name="btLinkedList">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Singly Linked List"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Constants.PORTUGUESE ? Constants.LAUNCHER_PT[3] : Constants.LAUNCHER_EN[3]" type="code"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btLinkedListActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btDLinkedList">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Doubly Linked List"/>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JButton" name="btStack">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Stack"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Constants.PORTUGUESE ? Constants.LAUNCHER_PT[5] : Constants.LAUNCHER_EN[5]" type="code"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btStackActionPerformed"/>
@@ -142,7 +143,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btQueue">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Queue"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Constants.PORTUGUESE ? Constants.LAUNCHER_PT[6] : Constants.LAUNCHER_EN[6]" type="code"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btQueueActionPerformed"/>
@@ -150,25 +153,34 @@
         </Component>
         <Component class="javax.swing.JButton" name="btTrees">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Trees"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Constants.PORTUGUESE ? Constants.LAUNCHER_PT[7] : Constants.LAUNCHER_EN[7]" type="code"/>
+            </Property>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btGraphs">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Graphs"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Constants.PORTUGUESE ? Constants.LAUNCHER_PT[8] : Constants.LAUNCHER_EN[8]" type="code"/>
+            </Property>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="versionLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Corbel" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Version 1.0"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Constants.PORTUGUESE ? Constants.LAUNCHER_PT[9] : Constants.LAUNCHER_EN[9]" type="code"/>
+            </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="versionLabelMouseClicked"/>
+          </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jLabel1.setHorizontalAlignment(SwingConstants.CENTER);"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="versionLabel.setHorizontalAlignment(SwingConstants.CENTER);"/>
           </AuxValues>
         </Component>
       </SubComponents>

@@ -3,9 +3,18 @@ package view;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import javax.swing.JFileChooser;
 import javax.swing.JScrollPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 import structures.SequentialList;
 
 public class SequentialListViewer extends JPanel {
@@ -43,7 +52,7 @@ public class SequentialListViewer extends JPanel {
         optionsPanel.add(btNew);
         optionsPanel.add(btLoad);
 
-        btNew.setText("New List");
+        btNew.setText(Constants.PORTUGUESE ? Constants.LIST_PT[0] : "New List");
         btNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btNewActionPerformed(evt);
@@ -51,18 +60,26 @@ public class SequentialListViewer extends JPanel {
         });
         optionsPanel.add(btNew);
 
-        btLoad.setText("Load");
-        btLoad.setEnabled(false);
+        btLoad.setText(Constants.PORTUGUESE ? Constants.LIST_PT[1] : "Load");
+        btLoad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLoadActionPerformed(evt);
+            }
+        });
         optionsPanel.add(btLoad);
 
-        btSave.setText("Save");
+        btSave.setText(Constants.PORTUGUESE ? Constants.LIST_PT[2] : "Save");
         btSave.setToolTipText("");
-        btSave.setEnabled(false);
+        btSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSaveActionPerformed(evt);
+            }
+        });
         optionsPanel.add(btSave);
 
         operationsPanel.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
-        btAdd.setText("Add");
+        btAdd.setText(Constants.PORTUGUESE ? Constants.LIST_PT[3] : "Add");
         btAdd.setEnabled(false);
         btAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,7 +88,7 @@ public class SequentialListViewer extends JPanel {
         });
         operationsPanel.add(btAdd);
 
-        btModify.setText("Modify");
+        btModify.setText(Constants.PORTUGUESE ? Constants.LIST_PT[4] : "Modify");
         btModify.setEnabled(false);
         btModify.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,7 +97,7 @@ public class SequentialListViewer extends JPanel {
         });
         operationsPanel.add(btModify);
 
-        btRemove.setText("Remove");
+        btRemove.setText(Constants.PORTUGUESE ? Constants.LIST_PT[5] : "Remove");
         btRemove.setEnabled(false);
         btRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,7 +106,7 @@ public class SequentialListViewer extends JPanel {
         });
         operationsPanel.add(btRemove);
 
-        btSearch.setText("Search");
+        btSearch.setText(Constants.PORTUGUESE ? Constants.LIST_PT[6] : "Search");
         btSearch.setEnabled(false);
         btSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,7 +118,7 @@ public class SequentialListViewer extends JPanel {
         scrollPane.setToolTipText("");
         scrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
-        statusLabel.setText("Empty");
+        statusLabel.setText(Constants.PORTUGUESE ? Constants.LIST_PT[7] : "Empty");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -124,7 +141,7 @@ public class SequentialListViewer extends JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(operationsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -133,7 +150,7 @@ public class SequentialListViewer extends JPanel {
 
     private void btNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNewActionPerformed
         try{
-            String input = JOptionPane.showInputDialog(this, "Insert the list maximum size (Type 0 for default size)", "Info", JOptionPane.QUESTION_MESSAGE);
+            String input = JOptionPane.showInputDialog(this, Constants.PORTUGUESE ? Constants.LIST_PT[8] : "Insert the list maximum size (Type 0 for default size)", "Info", JOptionPane.QUESTION_MESSAGE);
             if(input == null){
                 return;
             }
@@ -145,32 +162,26 @@ public class SequentialListViewer extends JPanel {
             } else {
                 throw new NumberFormatException();
             }
-            listElements();
-            statusLabel.setText("Current Size: " + list.getSize() + "         Maximum Size: " + list.getMaxSize());
-            btAdd.setEnabled(true);
-            btModify.setEnabled(true);
-            btRemove.setEnabled(true);
-            btSearch.setEnabled(true);
-            revalidate();
+            loadList();
         } catch(NumberFormatException ex){
             //ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Size must be a positive integer!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, Constants.PORTUGUESE ? Constants.ERRORS_PT[0] : "Size must be a positive integer!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btNewActionPerformed
 
     private void btAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddActionPerformed
         int value = 0, position = 0, selection;
-        String options[] = {"Beginning", "Ending", "In a given position", "Cancel"}, input;
-        selection = JOptionPane.showOptionDialog(this, "Where you would like to add an element", "Info", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        String options[] = {Constants.PORTUGUESE ? Constants.LIST_PT[11] : "Beginning", Constants.PORTUGUESE ? Constants.LIST_PT[12] : "End", Constants.PORTUGUESE ? Constants.LIST_PT[13] : "In a given position", Constants.PORTUGUESE ? Constants.LIST_PT[14] : "Cancel"}, input;
+        selection = JOptionPane.showOptionDialog(this, Constants.PORTUGUESE ? Constants.LIST_PT[15] : "Where you would like to add an element:", "Info", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         if(selection >= 0 && selection <= 2){
             try{
-                input = JOptionPane.showInputDialog(this, "Insert the value", "Info", JOptionPane.QUESTION_MESSAGE);
+                input = JOptionPane.showInputDialog(this, Constants.PORTUGUESE ? Constants.LIST_PT[16] : "Insert the value", "Info", JOptionPane.QUESTION_MESSAGE);
                 if(input == null){
                     return;
                 }
                 value = Integer.parseInt(input);
             } catch(NumberFormatException ex){
-                JOptionPane.showMessageDialog(this, "Value must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, Constants.PORTUGUESE ? Constants.ERRORS_PT[1] : "Value must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             switch(selection){
@@ -182,63 +193,66 @@ public class SequentialListViewer extends JPanel {
                     break;
                 case 2://x position
                     try{
-                        input = JOptionPane.showInputDialog(this, "Insert the position where you would like to add " + value, "Info", JOptionPane.QUESTION_MESSAGE);
+                        input = JOptionPane.showInputDialog(this, (Constants.PORTUGUESE ? Constants.LIST_PT[17] : "Insert the position where you would like to add ") + value, "Info", JOptionPane.QUESTION_MESSAGE);
                         if(input == null){
                             return;
                         }
                         position = Integer.parseInt(input);
                     } catch(NumberFormatException ex){
-                        JOptionPane.showMessageDialog(this, "Position must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, Constants.PORTUGUESE ? Constants.ERRORS_PT[2] : "Position must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                     break;
                 default:
                     break;
             }
-            if(!list.addValue(position, value)){
-                JOptionPane.showMessageDialog(this, "Invalid position or the list is full!", "Info", JOptionPane.WARNING_MESSAGE);
+            try{
+                list.addValue(position, value);
+                listElements();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Info", JOptionPane.WARNING_MESSAGE);
             }
         }
-        listElements();
     }//GEN-LAST:event_btAddActionPerformed
 
     private void btSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchActionPerformed
         int selection;
-        String options[] = {"By Value", "By Position", "Cancel"}, input;
-        selection = JOptionPane.showOptionDialog(this, "How you would like to search the list?", "Info", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        String options[] = {Constants.PORTUGUESE ? Constants.LIST_PT[18] : "By Value", Constants.PORTUGUESE ? Constants.LIST_PT[19] : "By Position", Constants.PORTUGUESE ? Constants.LIST_PT[20] : "Cancel"}, input;
+        selection = JOptionPane.showOptionDialog(this, Constants.PORTUGUESE ? Constants.LIST_PT[21] : "How you would like to search the list?", "Info", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         switch(selection){
             case 0://search by value
                 try{
-                    input = JOptionPane.showInputDialog(this, "Type the value to search for:", "Info", JOptionPane.QUESTION_MESSAGE);
+                    input = JOptionPane.showInputDialog(this, Constants.PORTUGUESE ? Constants.LIST_PT[22] : "Type the value to search for:", "Info", JOptionPane.QUESTION_MESSAGE);
                     if(input == null){
                         return;
                     }
                     int value = Integer.parseInt(input);
                     try{
-                        listElements(list.getPositionByValue(value), false);
+                        list.getPositionByValue(value);
+                        listElements(value, false);
                     }catch(Exception ex){
                         JOptionPane.showMessageDialog(this, ex.getMessage(), "Info", JOptionPane.WARNING_MESSAGE);
                     }
                 }catch(NumberFormatException ex){
-                    JOptionPane.showMessageDialog(this, "Value must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, Constants.PORTUGUESE ? Constants.ERRORS_PT[1] : "Value must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 break;
             case 1://search by position
                 try{
-                    input = JOptionPane.showInputDialog(this, "Type the position to search for:", "Info", JOptionPane.QUESTION_MESSAGE);
+                    input = JOptionPane.showInputDialog(this, Constants.PORTUGUESE ? Constants.LIST_PT[23] : "Type the position to search for:", "Info", JOptionPane.QUESTION_MESSAGE);
                     if(input == null){
                         return;
                     }
                     int position = Integer.parseInt(input);
                     try{
                         list.getValueAtPosition(position);
-                        JOptionPane.showMessageDialog(this, new Element(""+ list.getValueAtPosition(position)), "Value at position " + position, JOptionPane.PLAIN_MESSAGE);
+                        JOptionPane.showMessageDialog(this, new Element(""+ list.getValueAtPosition(position)), (Constants.PORTUGUESE ? Constants.LIST_PT[24] : "Value at position ") + position, JOptionPane.PLAIN_MESSAGE);
                         listElements(position, true);
                     }catch(Exception ex){
                         JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }                
                 }catch(NumberFormatException ex){
-                    JOptionPane.showMessageDialog(this, "Position must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, Constants.PORTUGUESE ? Constants.ERRORS_PT[2] : "Position must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 break;
             default:
@@ -266,7 +280,7 @@ public class SequentialListViewer extends JPanel {
                             JOptionPane.showMessageDialog(this, ex.getMessage(), "Info", JOptionPane.WARNING_MESSAGE);
                         }
                     }catch(NumberFormatException ex){
-                        JOptionPane.showMessageDialog(this, "Position must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, Constants.PORTUGUESE ? Constants.ERRORS_PT[2] : "Position must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                     break;
@@ -284,7 +298,7 @@ public class SequentialListViewer extends JPanel {
                             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         }
                     }catch(NumberFormatException ex){
-                        JOptionPane.showMessageDialog(this, "The element must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, Constants.PORTUGUESE ? Constants.ERRORS_PT[3] : "The element must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                     break;
@@ -311,11 +325,44 @@ public class SequentialListViewer extends JPanel {
                 listElements(pos, true);
             }
         } catch (NumberFormatException ex){
-            JOptionPane.showMessageDialog(this, "The position and value must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, Constants.PORTUGUESE ? Constants.ERRORS_PT[4] : "The position and value must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex){
             
         }
     }//GEN-LAST:event_btModifyActionPerformed
+
+    private void btLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLoadActionPerformed
+        JFileChooser fc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory()); 
+        FileFilter filter = new FileNameExtensionFilter("Sequential List (.list)", "list");
+        fc.setFileFilter(filter);
+        int returnVal = fc.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            try (FileInputStream fileIn = new FileInputStream(fc.getSelectedFile().getAbsolutePath()); ObjectInputStream in = new ObjectInputStream(fileIn)) {
+                list = (SequentialList) in.readObject();
+                loadList();
+            } catch (IOException | ClassNotFoundException ex) {
+                JOptionPane.showMessageDialog(this, Constants.PORTUGUESE ? Constants.ERRORS_PT[5] : "The selected file is not a valid sequential list!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btLoadActionPerformed
+
+    private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
+        if(list != null){        
+            JFileChooser fc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory()); 
+            fc.setDialogTitle("Choose a directory to save your list");
+            fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            int returnVal = fc.showSaveDialog(this);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                try (FileOutputStream fileOut = new FileOutputStream(fc.getSelectedFile().getAbsolutePath() + "MyList.list"); ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+                    out.writeObject(list);
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this, Constants.PORTUGUESE ? Constants.ERRORS_PT[6] : "Unknown error", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, Constants.PORTUGUESE ? "Lista Nula" : "Null list", "Error", JOptionPane.ERROR_MESSAGE);
+        } 
+    }//GEN-LAST:event_btSaveActionPerformed
    
     private void listElements(){
         Container cont = new Container();
@@ -335,7 +382,7 @@ public class SequentialListViewer extends JPanel {
         int sValue = scrollPane.getHorizontalScrollBar().getValue();
         scrollPane.getViewport().setView(cont);
         scrollPane.getHorizontalScrollBar().setValue(sValue);
-        statusLabel.setText("Current Size: " + list.getSize() + "         Maximum Size: " + list.getMaxSize());
+        statusLabel.setText((Constants.PORTUGUESE ? Constants.LIST_PT[9] : "Current Size: " )+ list.getSize() + (Constants.PORTUGUESE ? Constants.LIST_PT[10] : "         Maximum Size: " )+ list.getMaxSize());
     }
     
     private void listElements(int number, boolean position){
@@ -344,7 +391,7 @@ public class SequentialListViewer extends JPanel {
             Element element;
             try {
                 int value = list.getValueAtPosition(i);
-                element = new Element("" + list.getValueAtPosition(i));
+                element = new Element("" + value);
                 cont.add(element);
                 if(position){
                     if(i == number){
@@ -357,6 +404,7 @@ public class SequentialListViewer extends JPanel {
                 }
             }catch(Exception ex){
                 element = new Element("null");
+                element.setToolTipText("Position " + i);
                 cont.add(element);
             }
             cont.add(element);
@@ -365,7 +413,17 @@ public class SequentialListViewer extends JPanel {
         int sValue = scrollPane.getHorizontalScrollBar().getValue();
         scrollPane.getViewport().setView(cont);
         scrollPane.getHorizontalScrollBar().setValue(sValue);
-        statusLabel.setText("Current Size: " + list.getSize() + "         Maximum Size: " + list.getMaxSize());
+        statusLabel.setText((Constants.PORTUGUESE ? Constants.LIST_PT[9] : "Current Size: " )+ list.getSize() + (Constants.PORTUGUESE ? Constants.LIST_PT[10] : "         Maximum Size: " )+ list.getMaxSize());
+    }
+    
+    private void loadList(){
+        listElements();
+        statusLabel.setText((Constants.PORTUGUESE ? Constants.LIST_PT[9] : "Current Size: " )+ list.getSize() + (Constants.PORTUGUESE ? Constants.LIST_PT[10] : "         Maximum Size: " )+ list.getMaxSize());
+        btAdd.setEnabled(true);
+        btModify.setEnabled(true);
+        btRemove.setEnabled(true);
+        btSearch.setEnabled(true);
+        revalidate();
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

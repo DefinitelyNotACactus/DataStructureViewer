@@ -38,8 +38,9 @@ public interface Operations<T> {
      * @param position The value position.
      * @param value The new position value .
      * @return True if the operation was succesful, else, false.
+     * @throws java.lang.Exception If the position is invalid or the list if full (for Sequential List types)
      */
-    public boolean addValue(int position, T value);
+    public boolean addValue(int position, T value) throws Exception;
     
     /**
      * Tells the element of a given position.

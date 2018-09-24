@@ -36,7 +36,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="operationsPanel" min="-2" pref="50" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="scrollPane" min="-2" pref="219" max="-2" attributes="0"/>
+              <Component id="scrollPane" min="-2" pref="229" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="statusLabel" min="-2" pref="40" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -58,7 +58,9 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btNew">
           <Properties>
-            <Property name="text" type="java.lang.String" value="New List"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Constants.PORTUGUESE ? Constants.LIST_PT[0] : &quot;New List&quot;" type="code"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btNewActionPerformed"/>
@@ -66,16 +68,24 @@
         </Component>
         <Component class="javax.swing.JButton" name="btLoad">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Load"/>
-            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Constants.PORTUGUESE ? Constants.LIST_PT[1] : &quot;Load&quot;" type="code"/>
+            </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btLoadActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btSave">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Save"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Constants.PORTUGUESE ? Constants.LIST_PT[2] : &quot;Save&quot;" type="code"/>
+            </Property>
             <Property name="toolTipText" type="java.lang.String" value=""/>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSaveActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -89,7 +99,9 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btAdd">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Add"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Constants.PORTUGUESE ? Constants.LIST_PT[3] : &quot;Add&quot;" type="code"/>
+            </Property>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
@@ -98,7 +110,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btModify">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Modify"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Constants.PORTUGUESE ? Constants.LIST_PT[4] : &quot;Modify&quot;" type="code"/>
+            </Property>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
@@ -107,7 +121,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btRemove">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Remove"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Constants.PORTUGUESE ? Constants.LIST_PT[5] : &quot;Remove&quot;" type="code"/>
+            </Property>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
@@ -116,7 +132,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btSearch">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Search"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Constants.PORTUGUESE ? Constants.LIST_PT[6] : &quot;Search&quot;" type="code"/>
+            </Property>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
@@ -138,7 +156,9 @@
     </Container>
     <Component class="javax.swing.JLabel" name="statusLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Empty"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Constants.PORTUGUESE ? Constants.LIST_PT[7] : &quot;Empty&quot;" type="code"/>
+        </Property>
       </Properties>
     </Component>
   </SubComponents>

@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.GridLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JOptionPane;
@@ -93,10 +94,10 @@ public class StackViewer extends JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(statusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(optionsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+                    .addComponent(optionsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
                     .addComponent(operationsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -177,7 +178,6 @@ public class StackViewer extends JPanel {
         for (int i = stack.getMaxSize(); i >= 1; i--) {
             try {
                 element = new Element("" + stack.getValueAtPosition(i));
-                element.setToolTipText("Position " + i);
                 if(i == stack.getTop()){
                     element.setBorderColor(Color.BLUE);
                     element.setToolTipText("Top");
@@ -190,7 +190,7 @@ public class StackViewer extends JPanel {
                 cont.add(element);
             }
         }
-        cont.setLayout(new BoxLayout(cont, BoxLayout.Y_AXIS));
+        cont.setLayout(new GridLayout(0,1));
         int sValue = scrollPane.getVerticalScrollBar().getValue();
         scrollPane.getViewport().setView(cont);
         scrollPane.getVerticalScrollBar().setValue(sValue);

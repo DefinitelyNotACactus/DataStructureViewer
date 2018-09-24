@@ -1,6 +1,9 @@
 package structures;
 
-public class SequentialList<T> implements Operations<T> {
+import java.io.Serializable;
+import view.Constants;
+
+public class SequentialList<T> implements Operations<T>, Serializable{
 
     private T data[];
     private int size;
@@ -48,9 +51,11 @@ public class SequentialList<T> implements Operations<T> {
     }
     
     @Override
-    public boolean addValue(int position, T value){
-        if(!isValidPosition(position) || isFull()){
-            return false;
+    public boolean addValue(int position, T value) throws Exception {
+        if(!isValidPosition(position)){
+            throw new Exception(Constants.PORTUGUESE ? "Posição Inválida!" : "Invalid Position!");
+        } else if (isFull()){
+            throw new Exception(Constants.PORTUGUESE ? "A lista está cheia!" : "The list is full!");
         } else {
                 for(int i = size; i >= position; i--){
                     data[i] = data[i-1];
@@ -66,7 +71,7 @@ public class SequentialList<T> implements Operations<T> {
         if(isValidPosition(position)){
             return data[position-1];
         } else {
-            throw new Exception("Invalid Position");
+            throw new Exception(Constants.PORTUGUESE ? "Posição Inválida" : "Invalid Position");
         }
     }
 
@@ -77,7 +82,7 @@ public class SequentialList<T> implements Operations<T> {
                 return i+1;
             }
         }
-        throw new Exception("" + value + " is not on the list!");
+        throw new Exception("" + value + (Constants.PORTUGUESE ? " não está na lista!" : " is not on the list!"));
     }
     
     @Override
@@ -93,9 +98,9 @@ public class SequentialList<T> implements Operations<T> {
     @Override
     public T remove(int position) throws Exception {
         if(isEmpty()){
-            throw new Exception("The list is empty");
+            throw new Exception(Constants.PORTUGUESE ? "A lista está vazia" : "The list is empty");
         } else if(!isValidPosition(position)){
-            throw new Exception("Invalid Position");
+            throw new Exception(Constants.PORTUGUESE ? "Posição Inválida" : "Invalid Position");
         } else {
             T removed = data[position-1];
             for(int i = position-1; i < size-1; i++){
