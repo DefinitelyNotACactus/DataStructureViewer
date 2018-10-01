@@ -36,10 +36,10 @@ public class SequentialListViewer extends JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        optionsPanel = new javax.swing.JPanel();
-        btNew = new javax.swing.JButton();
         btLoad = new javax.swing.JButton();
         btSave = new javax.swing.JButton();
+        optionsPanel = new javax.swing.JPanel();
+        btNew = new javax.swing.JButton();
         operationsPanel = new javax.swing.JPanel();
         btAdd = new javax.swing.JButton();
         btModify = new javax.swing.JButton();
@@ -48,25 +48,12 @@ public class SequentialListViewer extends JPanel {
         scrollPane = new JScrollPane();
         statusLabel = new javax.swing.JLabel();
 
-        optionsPanel.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
-        optionsPanel.add(btNew);
-        optionsPanel.add(btLoad);
-
-        btNew.setText(Constants.PORTUGUESE ? Constants.LIST_PT[0] : "New List");
-        btNew.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btNewActionPerformed(evt);
-            }
-        });
-        optionsPanel.add(btNew);
-
         btLoad.setText(Constants.PORTUGUESE ? Constants.LIST_PT[1] : "Load");
         btLoad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btLoadActionPerformed(evt);
             }
         });
-        optionsPanel.add(btLoad);
 
         btSave.setText(Constants.PORTUGUESE ? Constants.LIST_PT[2] : "Save");
         btSave.setToolTipText("");
@@ -75,7 +62,16 @@ public class SequentialListViewer extends JPanel {
                 btSaveActionPerformed(evt);
             }
         });
-        optionsPanel.add(btSave);
+
+        optionsPanel.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
+
+        btNew.setText(Constants.PORTUGUESE ? Constants.LIST_PT[0] : "New List");
+        btNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNewActionPerformed(evt);
+            }
+        });
+        optionsPanel.add(btNew);
 
         operationsPanel.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
@@ -158,7 +154,7 @@ public class SequentialListViewer extends JPanel {
             if(size == 0){
                 list = new SequentialList<>();
             } else if(size > 0){
-                list = new SequentialList<>(size);
+                list = new SequentialList<>(this, size);
             } else {
                 throw new NumberFormatException();
             }
@@ -207,8 +203,8 @@ public class SequentialListViewer extends JPanel {
                     break;
             }
             try{
+                listElements(position, true);
                 list.addValue(position, value);
-                listElements();
             } catch(Exception ex){
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Info", JOptionPane.WARNING_MESSAGE);
             }
@@ -218,11 +214,11 @@ public class SequentialListViewer extends JPanel {
     private void btSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchActionPerformed
         int selection;
         String options[] = {Constants.PORTUGUESE ? Constants.LIST_PT[18] : "By Value", Constants.PORTUGUESE ? Constants.LIST_PT[19] : "By Position", Constants.PORTUGUESE ? Constants.LIST_PT[20] : "Cancel"}, input;
-        selection = JOptionPane.showOptionDialog(this, Constants.PORTUGUESE ? Constants.LIST_PT[21] : "How you would like to search the list?", "Info", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        selection = JOptionPane.showOptionDialog(this, Constants.PORTUGUESE ? Constants.LIST_PT[21] : "How you would like to search the list", "Info", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         switch(selection){
             case 0://search by value
                 try{
-                    input = JOptionPane.showInputDialog(this, Constants.PORTUGUESE ? Constants.LIST_PT[22] : "Type the value to search for:", "Info", JOptionPane.QUESTION_MESSAGE);
+                    input = JOptionPane.showInputDialog(this, Constants.PORTUGUESE ? Constants.LIST_PT[22] : "Insert the value to search for:", "Info", JOptionPane.QUESTION_MESSAGE);
                     if(input == null){
                         return;
                     }
@@ -239,7 +235,7 @@ public class SequentialListViewer extends JPanel {
                 break;
             case 1://search by position
                 try{
-                    input = JOptionPane.showInputDialog(this, Constants.PORTUGUESE ? Constants.LIST_PT[23] : "Type the position to search for:", "Info", JOptionPane.QUESTION_MESSAGE);
+                    input = JOptionPane.showInputDialog(this, Constants.PORTUGUESE ? Constants.LIST_PT[23] : "Insert the position to search for:", "Info", JOptionPane.QUESTION_MESSAGE);
                     if(input == null){
                         return;
                     }
@@ -268,50 +264,48 @@ public class SequentialListViewer extends JPanel {
             switch(selection){
                 case 0://remove by position
                     try {
-                        input = JOptionPane.showInputDialog(this, "Where do you would like to remove a element?", "Info", JOptionPane.QUESTION_MESSAGE);
+                        input = JOptionPane.showInputDialog(this, "Insert the position:", "Info", JOptionPane.QUESTION_MESSAGE);
                         if(input == null){
                             return;
                         }
                         position = Integer.parseInt(input);
                         try{
-                            Integer value = list.remove(position);
-                            JOptionPane.showMessageDialog(this, "" + value + " was removed from the list!");
+                            list.remove(position);
+                            //JOptionPane.showMessageDialog(this, "" + value + " was removed from the list!");
                         }catch(Exception ex){
                             JOptionPane.showMessageDialog(this, ex.getMessage(), "Info", JOptionPane.WARNING_MESSAGE);
                         }
                     }catch(NumberFormatException ex){
                         JOptionPane.showMessageDialog(this, Constants.PORTUGUESE ? Constants.ERRORS_PT[2] : "Position must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
-                        return;
                     }
                     break;
                 case 1://remove by element
                     try {
-                        input = JOptionPane.showInputDialog(this, "Type the element to remove from the list:", "Info", JOptionPane.QUESTION_MESSAGE);
+                        input = JOptionPane.showInputDialog(this, "Type the element to be removed from the list:", "Info", JOptionPane.QUESTION_MESSAGE);
                         if(input == null){
                             return;
                         }
                         Integer value = Integer.parseInt(input);
                         try{
-                            position = list.remove(value);
-                            JOptionPane.showMessageDialog(this, "" + value + " was removed from the list at position " + position);
+                            list.remove(value);
+                            //JOptionPane.showMessageDialog(this, "" + value + " was removed from the list at position " + position);
                         }catch(Exception ex){
                             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         }
                     }catch(NumberFormatException ex){
                         JOptionPane.showMessageDialog(this, Constants.PORTUGUESE ? Constants.ERRORS_PT[3] : "The element must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
-                        return;
                     }
                     break;
                 default:
                     break;
             }         
         }
-        listElements();
+        //listElements();
     }//GEN-LAST:event_btRemoveActionPerformed
 
     private void btModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModifyActionPerformed
         try{
-            String input = JOptionPane.showInputDialog(this, "Please type the position you would like to modify: ", "Info", JOptionPane.QUESTION_MESSAGE);
+            String input = JOptionPane.showInputDialog(this, "Type the position you would like to change:", "Info", JOptionPane.QUESTION_MESSAGE);
             if(input == null){
                 return;
             }
@@ -364,7 +358,7 @@ public class SequentialListViewer extends JPanel {
         } 
     }//GEN-LAST:event_btSaveActionPerformed
    
-    private void listElements(){
+    public void listElements(){
         Container cont = new Container();
         Element element;
         for(int i = 1; i <= list.getMaxSize(); i++){
@@ -385,13 +379,14 @@ public class SequentialListViewer extends JPanel {
         statusLabel.setText((Constants.PORTUGUESE ? Constants.LIST_PT[9] : "Current Size: " )+ list.getSize() + (Constants.PORTUGUESE ? Constants.LIST_PT[10] : "         Maximum Size: " )+ list.getMaxSize());
     }
     
-    private void listElements(int number, boolean position){
+    public void listElements(int number, boolean position){
         Container cont = new Container();
         for(int i = 1; i <= list.getMaxSize(); i++){
             Element element;
             try {
                 int value = list.getValueAtPosition(i);
                 element = new Element("" + value);
+                element.setToolTipText("Position " + i);
                 cont.add(element);
                 if(position){
                     if(i == number){

@@ -28,19 +28,24 @@ public class QueueViewer extends JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        optionsPanel = new javax.swing.JPanel();
-        btNew = new javax.swing.JButton();
         btLoad = new javax.swing.JButton();
         btSave = new javax.swing.JButton();
+        optionsPanel = new javax.swing.JPanel();
+        btNew = new javax.swing.JButton();
         operationsPanel = new javax.swing.JPanel();
         btAdd = new javax.swing.JButton();
         btRemove = new javax.swing.JButton();
         scrollPane = new JScrollPane();
         statusLabel = new javax.swing.JLabel();
 
+        btLoad.setText("Load");
+        btLoad.setEnabled(false);
+
+        btSave.setText("Save");
+        btSave.setToolTipText("");
+        btSave.setEnabled(false);
+
         optionsPanel.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
-        optionsPanel.add(btNew);
-        optionsPanel.add(btLoad);
 
         btNew.setText("New Queue");
         btNew.addActionListener(new java.awt.event.ActionListener() {
@@ -49,15 +54,6 @@ public class QueueViewer extends JPanel {
             }
         });
         optionsPanel.add(btNew);
-
-        btLoad.setText("Load");
-        btLoad.setEnabled(false);
-        optionsPanel.add(btLoad);
-
-        btSave.setText("Save");
-        btSave.setToolTipText("");
-        btSave.setEnabled(false);
-        optionsPanel.add(btSave);
 
         operationsPanel.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
@@ -178,8 +174,12 @@ public class QueueViewer extends JPanel {
                 if(i-1 == queue.getStart() && queue.getSize() > 0){
                     element.setBorderColor(Color.BLUE);
                     element.setToolTipText("Queue's first element");
+                    if(i-1 == queue.getEnd()){
+                        element.setBorderColor(Color.YELLOW);
+                        element.setToolTipText("Queue's first and last element");
+                    }
                 } else if(i-1 == queue.getEnd() && queue.getSize() > 0){
-                    element.setBorderColor(Color.RED);
+                    element.setBorderColor(Color.GREEN);
                     element.setToolTipText("Queue's last element");
                 }
                 cont.add(element);

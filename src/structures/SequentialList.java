@@ -1,12 +1,15 @@
 package structures;
 
-import java.io.Serializable;
+import java.util.Timer;
+import java.util.TimerTask;
 import view.Constants;
+import view.SequentialListViewer;
 
-public class SequentialList<T> implements Operations<T>, Serializable{
+public class SequentialList<T> implements Operations<T> {
 
     private T data[];
     private int size;
+    private SequentialListViewer view;
     
     /**
      * Creates a new sequential list with default capacity (100).
@@ -18,11 +21,13 @@ public class SequentialList<T> implements Operations<T>, Serializable{
 
     /**
      * Creates a new sequential list with the given capaciticy.
+     * @param view
      * @param maxSize The list maximum capacity.
      */
-    public SequentialList(int maxSize){
+    public SequentialList(SequentialListViewer view, int maxSize){
         size = 0;
         data = (T[]) new Object[maxSize];
+        this.view = view;
     }
     
     @Override
@@ -57,12 +62,23 @@ public class SequentialList<T> implements Operations<T>, Serializable{
         } else if (isFull()){
             throw new Exception(Constants.PORTUGUESE ? "A lista está cheia!" : "The list is full!");
         } else {
-                for(int i = size; i >= position; i--){
-                    data[i] = data[i-1];
+            new Timer().scheduleAtFixedRate(new TimerTask(){
+                int i = size;
+                @Override
+                public void run(){
+                    if(i >= position){
+                        data[i] = data[i-1];
+                        view.listElements(i, true);
+                        i--;
+                    } else {
+                        data[position-1] = value;
+                        size++;
+                        view.listElements(position, true);
+                        cancel();
+                    }
                 }
-                data[position-1] = value;
-                size++;
-                return true;
+            }, 1000, 1000);     
+            return true;
         }
     }
 
@@ -103,11 +119,22 @@ public class SequentialList<T> implements Operations<T>, Serializable{
             throw new Exception(Constants.PORTUGUESE ? "Posição Inválida" : "Invalid Position");
         } else {
             T removed = data[position-1];
-            for(int i = position-1; i < size-1; i++){
-                data[i] = data[i+1];
-            }
-            data[size-1] = null;
-            size--;
+            new Timer().scheduleAtFixedRate(new TimerTask(){
+                int i = position-1;
+                @Override
+                public void run(){
+                    if(i < size-1){
+                        data[i] = data[i+1];
+                        view.listElements();
+                        i++;
+                    } else {
+                        data[size-1] = null;
+                        size--;
+                        view.listElements();
+                        cancel();
+                    }
+                }
+            }, 1000, 1000);
             return removed;
         }
     }

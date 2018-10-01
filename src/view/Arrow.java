@@ -80,6 +80,7 @@ public class Arrow extends JPanel {
             arrowLabel.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/assets/arrow.png")).getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH)));
         } else {
             arrowLabel.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/assets/null.png")).getImage().getScaledInstance(140, 140, Image.SCALE_SMOOTH)));
+            arrowLabel.setToolTipText("Null");
         }
     }
     

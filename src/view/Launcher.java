@@ -3,6 +3,8 @@ package view;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -150,22 +152,22 @@ public class Launcher extends JFrame {
 
     private void btSeqListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSeqListActionPerformed
         new Viewer("Sequential List").setVisible(true);
-        dispose();
+        //dispose();
     }//GEN-LAST:event_btSeqListActionPerformed
 
     private void btLinkedListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLinkedListActionPerformed
         new Viewer("Linked List").setVisible(true);
-        dispose();
+        //dispose();
     }//GEN-LAST:event_btLinkedListActionPerformed
 
     private void btQueueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btQueueActionPerformed
         new Viewer("Queue").setVisible(true);
-        dispose();
+        //dispose();
     }//GEN-LAST:event_btQueueActionPerformed
 
     private void btStackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btStackActionPerformed
         new Viewer("Stack").setVisible(true);
-        dispose();
+        //dispose();
     }//GEN-LAST:event_btStackActionPerformed
 
     private void versionLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_versionLabelMouseClicked
@@ -190,22 +192,26 @@ public class Launcher extends JFrame {
     
     private void sillyColors() {
         Random rand = new Random();
-        contentPanel.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
-        btGraphs.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
-        btLinkedList.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
-        btQueue.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
-        btSeqList.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
-        btStack.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
-        btTrees.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
-        btGraphs.setForeground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
-        btLinkedList.setForeground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
-        btQueue.setForeground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
-        btSeqList.setForeground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
-        btStack.setForeground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
-        btTrees.setForeground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
-        versionLabel.setForeground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
-        titleLabel.setForeground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
-        revalidate();
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                contentPanel.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btGraphs.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btLinkedList.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btQueue.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btSeqList.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btStack.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btTrees.setBackground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btGraphs.setForeground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btLinkedList.setForeground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btQueue.setForeground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btSeqList.setForeground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btStack.setForeground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                btTrees.setForeground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                titleLabel.setForeground(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+                revalidate();
+            }
+        }, 0, 500);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

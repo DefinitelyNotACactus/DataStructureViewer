@@ -2,11 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.GridLayout;
-import java.awt.Image;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -32,10 +28,10 @@ public class LinkedListViewer extends JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        optionsPanel = new javax.swing.JPanel();
-        btNew = new javax.swing.JButton();
         btLoad = new javax.swing.JButton();
         btSave = new javax.swing.JButton();
+        optionsPanel = new javax.swing.JPanel();
+        btNew = new javax.swing.JButton();
         operationsPanel = new javax.swing.JPanel();
         btAdd = new javax.swing.JButton();
         btModify = new javax.swing.JButton();
@@ -44,9 +40,14 @@ public class LinkedListViewer extends JPanel {
         scrollPane = new JScrollPane();
         statusLabel = new javax.swing.JLabel();
 
+        btLoad.setText("Load");
+        btLoad.setEnabled(false);
+
+        btSave.setText("Save");
+        btSave.setToolTipText("");
+        btSave.setEnabled(false);
+
         optionsPanel.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
-        optionsPanel.add(btNew);
-        optionsPanel.add(btLoad);
 
         btNew.setText("New List");
         btNew.addActionListener(new java.awt.event.ActionListener() {
@@ -55,15 +56,6 @@ public class LinkedListViewer extends JPanel {
             }
         });
         optionsPanel.add(btNew);
-
-        btLoad.setText("Load");
-        btLoad.setEnabled(false);
-        optionsPanel.add(btLoad);
-
-        btSave.setText("Save");
-        btSave.setToolTipText("");
-        btSave.setEnabled(false);
-        optionsPanel.add(btSave);
 
         operationsPanel.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
@@ -273,7 +265,6 @@ public class LinkedListViewer extends JPanel {
                             position = list.remove(value);
                             JOptionPane.showMessageDialog(this, "" + value + " was removed from the list at position " + position);
                         }catch(Exception ex){
-                            ex.printStackTrace();
                             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         }
                     }catch(NumberFormatException ex){
@@ -315,17 +306,24 @@ public class LinkedListViewer extends JPanel {
         Element element;
         Arrow arrow;
         Node node;
+        element = new Element("Head");
+        element.setBorderColor(Color.red);
+        arrow = new Arrow(true);
+        cont.add(element);
+        cont.add(arrow);
         for(int i = 1; i <= list.getSize(); i++){
             try {
                 node = list.getNodeAtPosition(i);
                 element = new Element("" + node.getValue());
-                arrow = new Arrow(node.hasNext());
+                arrow = new Arrow(true);
                 element.setToolTipText("Position " + i);
                 cont.add(element);
                 cont.add(arrow);
             }catch(Exception ex){
             }
         }     
+        arrow = new Arrow(false);
+        cont.add(arrow);
         cont.setLayout(new BoxLayout(cont, BoxLayout.X_AXIS));
         int sValue = scrollPane.getHorizontalScrollBar().getValue();
         scrollPane.getViewport().setView(cont);
@@ -338,12 +336,17 @@ public class LinkedListViewer extends JPanel {
         Element element;
         Arrow arrow;
         Node node;
+        element = new Element("Head");
+        element.setBorderColor(Color.red);
+        arrow = new Arrow(true);
+        cont.add(element);
+        cont.add(arrow);
         for(int i = 1; i <= list.getSize(); i++){
             try {
                 node = list.getNodeAtPosition(i);
                 int value = Integer.parseInt("" + node.getValue());
                 element = new Element("" + value);
-                arrow = new Arrow(node.hasNext());
+                arrow = new Arrow(true);
                 element.setToolTipText("Position " + i);
                 cont.add(element);
                 if(position){
@@ -359,6 +362,8 @@ public class LinkedListViewer extends JPanel {
             }catch(Exception ex){
             }
         }     
+        arrow = new Arrow(false);
+        cont.add(arrow);
         cont.setLayout(new BoxLayout(cont, BoxLayout.X_AXIS));
         int sValue = scrollPane.getHorizontalScrollBar().getValue();
         scrollPane.getViewport().setView(cont);
