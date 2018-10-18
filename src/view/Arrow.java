@@ -29,16 +29,16 @@ public class Arrow extends JPanel {
         arrowLabel = new javax.swing.JLabel();
 
         setForeground(new java.awt.Color(240, 240, 240));
-        setMaximumSize(new java.awt.Dimension(198, 198));
-        setMinimumSize(new java.awt.Dimension(198, 198));
-        setPreferredSize(new java.awt.Dimension(198, 198));
+        setMaximumSize(new java.awt.Dimension(100, 100));
+        setMinimumSize(new java.awt.Dimension(100, 100));
+        setPreferredSize(new java.awt.Dimension(100, 100));
 
         arrowLabel.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         arrowLabel.setToolTipText("Next Element");
-        arrowLabel.setMaximumSize(new java.awt.Dimension(198, 198));
-        arrowLabel.setMinimumSize(new java.awt.Dimension(198, 198));
+        arrowLabel.setMaximumSize(new java.awt.Dimension(90, 90));
+        arrowLabel.setMinimumSize(new java.awt.Dimension(90, 90));
         arrowLabel.setOpaque(true);
-        arrowLabel.setPreferredSize(new java.awt.Dimension(198, 198));
+        arrowLabel.setPreferredSize(new java.awt.Dimension(90, 90));
         arrowLabel.setHorizontalAlignment(SwingConstants.CENTER);
         arrowLabel.setVerticalAlignment(SwingConstants.CENTER);
         arrowLabel.addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -51,11 +51,17 @@ public class Arrow extends JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(arrowLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(arrowLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(5, 5, 5))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(arrowLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(arrowLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(5, 5, 5))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -69,17 +75,9 @@ public class Arrow extends JPanel {
 
     public void setNext(){
         if(hasNext){
-            int h = getHeight();
-            int w = getWidth();
-            if(h == 0){
-                h = 200;
-            }
-            if(w == 0){
-                w = 200;
-            }
-            arrowLabel.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/assets/arrow.png")).getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH)));
+            arrowLabel.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/assets/arrow.png")).getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH)));
         } else {
-            arrowLabel.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/assets/null.png")).getImage().getScaledInstance(140, 140, Image.SCALE_SMOOTH)));
+            arrowLabel.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/assets/null.png")).getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH)));
             arrowLabel.setToolTipText("Null");
         }
     }

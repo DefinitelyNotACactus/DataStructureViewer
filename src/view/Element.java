@@ -28,33 +28,34 @@ public class Element extends JPanel {
         elementLabel = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(0, 0, 0));
-        setMaximumSize(new java.awt.Dimension(198, 198));
-        setMinimumSize(new java.awt.Dimension(198, 198));
+        setMaximumSize(new java.awt.Dimension(100, 100));
+        setMinimumSize(new java.awt.Dimension(100, 100));
+        setPreferredSize(new java.awt.Dimension(100, 100));
 
-        elementLabel.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        elementLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         elementLabel.setText(value);
         elementLabel.setToolTipText(value);
-        elementLabel.setMaximumSize(new java.awt.Dimension(178, 178));
-        elementLabel.setMinimumSize(new java.awt.Dimension(178, 178));
+        elementLabel.setMaximumSize(new java.awt.Dimension(180, 180));
+        elementLabel.setMinimumSize(new java.awt.Dimension(90, 90));
         elementLabel.setOpaque(true);
-        elementLabel.setPreferredSize(new java.awt.Dimension(178, 178));
+        elementLabel.setPreferredSize(new java.awt.Dimension(90, 90));
         elementLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(5, 5, 5)
                 .addComponent(elementLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(10, 10, 10))
+                .addGap(5, 5, 5))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(5, 5, 5)
                 .addComponent(elementLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(10, 10, 10))
+                .addGap(5, 5, 5))
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -30,7 +30,7 @@ public class Viewer extends JFrame {
 
         btCreate.setText("jButton1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(title);
 
         contentPanel.setLayout(new javax.swing.BoxLayout(contentPanel, javax.swing.BoxLayout.LINE_AXIS));
@@ -39,11 +39,11 @@ public class Viewer extends JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
+            .addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
         );
 
         pack();
@@ -52,17 +52,24 @@ public class Viewer extends JFrame {
     private void loadPanel() {
         switch (title) {
             case "Sequential List Viewer":
+                setBounds(getX(), getY(), 800, 320);
                 contentPanel.add(new SequentialListViewer());
                 break;
             case "Linked List Viewer":
+                setBounds(getX(), getY(), 800, 320);
                 contentPanel.add(new LinkedListViewer());
                 break;
             case "Queue Viewer":
+                setBounds(getX(), getY(), 800, 470);
                 contentPanel.add(new QueueViewer());
                 break;
             case "Stack Viewer":
                 setBounds(getX(), getY(), 800, 470);
                 contentPanel.add(new StackViewer());
+                break;
+            case "Tree Viewer":
+                setBounds(getX(), getY(), 800, 800);
+                contentPanel.add(new BinarySearchTreeViewer());
                 break;
             default:
                 break;

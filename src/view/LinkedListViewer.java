@@ -121,8 +121,8 @@ public class LinkedListViewer extends JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(operationsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -307,7 +307,7 @@ public class LinkedListViewer extends JPanel {
         Arrow arrow;
         Node node;
         element = new Element("Head");
-        element.setBorderColor(Color.red);
+        element.setBorderColor(Color.GREEN);
         arrow = new Arrow(true);
         cont.add(element);
         cont.add(arrow);
@@ -324,7 +324,7 @@ public class LinkedListViewer extends JPanel {
         }     
         arrow = new Arrow(false);
         cont.add(arrow);
-        cont.setLayout(new BoxLayout(cont, BoxLayout.X_AXIS));
+        cont.setLayout(new BoxLayout(cont, BoxLayout.LINE_AXIS));
         int sValue = scrollPane.getHorizontalScrollBar().getValue();
         scrollPane.getViewport().setView(cont);
         scrollPane.getHorizontalScrollBar().setValue(sValue);
@@ -337,7 +337,7 @@ public class LinkedListViewer extends JPanel {
         Arrow arrow;
         Node node;
         element = new Element("Head");
-        element.setBorderColor(Color.red);
+        element.setBorderColor(Color.GREEN);
         arrow = new Arrow(true);
         cont.add(element);
         cont.add(arrow);
@@ -364,7 +364,7 @@ public class LinkedListViewer extends JPanel {
         }     
         arrow = new Arrow(false);
         cont.add(arrow);
-        cont.setLayout(new BoxLayout(cont, BoxLayout.X_AXIS));
+        cont.setLayout(new BoxLayout(cont, BoxLayout.LINE_AXIS));
         int sValue = scrollPane.getHorizontalScrollBar().getValue();
         scrollPane.getViewport().setView(cont);
         scrollPane.getHorizontalScrollBar().setValue(sValue);
