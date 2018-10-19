@@ -31,9 +31,9 @@ public class Constants {
         "Erro desconhecido"
     };
     
-    public static ImageIcon DIAGONAL_ARROW_L = new ImageIcon(new ImageIcon("src/assets/diagonal.png").getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
-    public static ImageIcon DIAGONAL_ARROW_R = new ImageIcon(new ImageIcon("src/assets/rdiagonal.png").getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+    public static ImageIcon DIAGONAL_ARROW_L = new ImageIcon(new ImageIcon(Constants.class.getResource("/assets/diagonal.png")).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+    public static ImageIcon DIAGONAL_ARROW_R = new ImageIcon(new ImageIcon(Constants.class.getResource("/assets/rdiagonal.png")).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
     
-    public static ImageIcon RIGHT_ARROW = new ImageIcon(new ImageIcon("src/assets/arrow.png").getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH));
-    public static ImageIcon NULL = new ImageIcon(new ImageIcon("src/assets/null.png").getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH));
+    public static ImageIcon RIGHT_ARROW = new ImageIcon(new ImageIcon(Constants.class.getResource("/assets/arrow.png")).getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH));
+    public static ImageIcon NULL = new ImageIcon(new ImageIcon(Constants.class.getResource("/assets/null.png")).getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH));
 }
