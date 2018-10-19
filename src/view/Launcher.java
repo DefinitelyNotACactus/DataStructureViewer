@@ -31,8 +31,8 @@ public class Launcher extends JFrame {
     private void initComponents() {
 
         btGraphs = new javax.swing.JButton();
-        contentPanel = new javax.swing.JPanel();
         titleLabel = new javax.swing.JLabel();
+        contentPanel = new javax.swing.JPanel();
         versionLabel = new javax.swing.JLabel();
         buttonsPanel = new javax.swing.JPanel();
         btSeqList = new javax.swing.JButton();
@@ -44,6 +44,12 @@ public class Launcher extends JFrame {
         btGraphs.setText(Constants.PORTUGUESE ? Constants.LAUNCHER_PT[8] : Constants.LAUNCHER_EN[8]);
         btGraphs.setEnabled(false);
 
+        titleLabel.setFont(new java.awt.Font("Corbel", 0, 36)); // NOI18N
+        titleLabel.setForeground(new java.awt.Color(0, 51, 51));
+        titleLabel.setText(Constants.PORTUGUESE ? Constants.LAUNCHER_PT[0] : Constants.LAUNCHER_EN[0]);
+        titleLabel.setToolTipText(Constants.PORTUGUESE ? Constants.LAUNCHER_PT[1] : Constants.LAUNCHER_EN[1]);
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Data Structure Viewer");
         setBackground(new java.awt.Color(0, 51, 153));
@@ -51,12 +57,6 @@ public class Launcher extends JFrame {
 
         contentPanel.setToolTipText("");
         contentPanel.setMinimumSize(new java.awt.Dimension(400, 500));
-
-        titleLabel.setFont(new java.awt.Font("Corbel", 0, 36)); // NOI18N
-        titleLabel.setForeground(new java.awt.Color(0, 51, 51));
-        titleLabel.setText(Constants.PORTUGUESE ? Constants.LAUNCHER_PT[0] : Constants.LAUNCHER_EN[0]);
-        titleLabel.setToolTipText(Constants.PORTUGUESE ? Constants.LAUNCHER_PT[1] : Constants.LAUNCHER_EN[1]);
-        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         versionLabel.setFont(new java.awt.Font("Corbel", 0, 14)); // NOI18N
         versionLabel.setText(Constants.PORTUGUESE ? Constants.LAUNCHER_PT[9] : Constants.LAUNCHER_EN[9]);
@@ -67,7 +67,7 @@ public class Launcher extends JFrame {
             }
         });
 
-        buttonsPanel.setLayout(new java.awt.GridLayout(0, 1));
+        buttonsPanel.setLayout(new java.awt.GridLayout(0, 1, 0, 15));
 
         btSeqList.setText(Constants.PORTUGUESE ? Constants.LAUNCHER_PT[2] : Constants.LAUNCHER_EN[2]);
         btSeqList.addActionListener(new java.awt.event.ActionListener() {
@@ -116,7 +116,6 @@ public class Launcher extends JFrame {
             .addGroup(contentPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(titleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
                     .addComponent(versionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(buttonsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -124,9 +123,7 @@ public class Launcher extends JFrame {
         contentPanelLayout.setVerticalGroup(
             contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contentPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(titleLabel)
-                .addGap(18, 18, 18)
+                .addGap(73, 73, 73)
                 .addComponent(buttonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(versionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)

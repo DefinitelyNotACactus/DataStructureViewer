@@ -6,14 +6,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class Arrow extends JPanel {
+public class DiagonalArrow extends JPanel {
     
-    private boolean hasNext;
+    private final boolean left;
     
     /** Creates new form Element
-     * @param hasNext */
-    public Arrow(boolean hasNext) {
-        this.hasNext = hasNext;
+     * @param left */
+    public DiagonalArrow(boolean left) {
+        this.left = left;
         initComponents();
     }
 
@@ -35,10 +35,10 @@ public class Arrow extends JPanel {
 
         arrowLabel.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         arrowLabel.setToolTipText("Next Element");
-        arrowLabel.setMaximumSize(new java.awt.Dimension(90, 90));
-        arrowLabel.setMinimumSize(new java.awt.Dimension(90, 90));
+        arrowLabel.setMaximumSize(new java.awt.Dimension(100, 100));
+        arrowLabel.setMinimumSize(new java.awt.Dimension(100, 100));
         arrowLabel.setOpaque(true);
-        arrowLabel.setPreferredSize(new java.awt.Dimension(90, 90));
+        arrowLabel.setPreferredSize(new java.awt.Dimension(100, 100));
         arrowLabel.setHorizontalAlignment(SwingConstants.CENTER);
         arrowLabel.setVerticalAlignment(SwingConstants.CENTER);
         arrowLabel.addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -51,17 +51,11 @@ public class Arrow extends JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(arrowLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(5, 5, 5))
+            .addComponent(arrowLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(arrowLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(5, 5, 5))
+            .addComponent(arrowLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -74,11 +68,10 @@ public class Arrow extends JPanel {
     }
 
     public void setNext(){
-        if(hasNext){
-            arrowLabel.setIcon(Constants.RIGHT_ARROW);
+        if(left){
+            arrowLabel.setIcon(Constants.DIAGONAL_ARROW_L);
         } else {
-            arrowLabel.setIcon(Constants.NULL);
-            arrowLabel.setToolTipText("Null");
+            arrowLabel.setIcon(Constants.DIAGONAL_ARROW_R);
         }
     }
     

@@ -101,7 +101,7 @@ public class QueueViewer extends JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(operationsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -173,13 +173,16 @@ public class QueueViewer extends JPanel {
                 element = new Element("" + queue.getValueAtPosition(i));
                 if(i-1 == queue.getStart() && queue.getSize() > 0){
                     element.setBorderColor(Color.BLUE);
+                    //element.getLabel().setText("<html><center>" + queue.getValueAtPosition(i) + "<br>First</center></html>");
                     element.setToolTipText("Queue's first element");
                     if(i-1 == queue.getEnd()){
                         element.setBorderColor(Color.YELLOW);
+                        //element.getLabel().setText("<html><center>" + queue.getValueAtPosition(i) + "<br></center></html>");
                         element.setToolTipText("Queue's first and last element");
                     }
                 } else if(i-1 == queue.getEnd() && queue.getSize() > 0){
                     element.setBorderColor(Color.GREEN);
+                    //element.getLabel().setText("<html><center>" + queue.getValueAtPosition(i) + "<br>Last</center></html>");
                     element.setToolTipText("Queue's last element");
                 }
                 cont.add(element);

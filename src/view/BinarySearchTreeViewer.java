@@ -96,34 +96,45 @@ public class BinarySearchTreeViewer extends JPanel {
         tree = new BinarySearchTree(scrollPane);
         btSearch.setEnabled(true);
         btAdd.setEnabled(true);
-        showTree();
+        tree.showTree();
     }//GEN-LAST:event_btCreateActionPerformed
 
     private void btAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddActionPerformed
         String input;
-        int value;
+        int value = 0;
         try{
             input = JOptionPane.showInputDialog(this, Constants.PORTUGUESE ? Constants.LIST_PT[16] : "Insert the value", "Info", JOptionPane.QUESTION_MESSAGE);
             if(input == null){
                 return;
             }
             value = Integer.parseInt(input);
+            tree.search(value);  
         } catch(NumberFormatException ex){
             JOptionPane.showMessageDialog(this, Constants.PORTUGUESE ? Constants.ERRORS_PT[1] : "Value must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        tree.insert(value);
-        showTree();
+        } catch (Exception ex) {
+            tree.insert(value);
+            tree.showTree();
+        }       
     }//GEN-LAST:event_btAddActionPerformed
 
     private void btSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchActionPerformed
-
+        String input;
+        int value;
+        try{
+            input = JOptionPane.showInputDialog(this, Constants.PORTUGUESE ? Constants.LIST_PT[16] : "Insert the value to search for", "Info", JOptionPane.QUESTION_MESSAGE);
+            if(input == null){
+                return;
+            }
+            value = Integer.parseInt(input);
+            tree.search(value);
+            tree.showTree(value);
+        } catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(this, Constants.PORTUGUESE ? Constants.ERRORS_PT[1] : "Value must be a integer!", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btSearchActionPerformed
 
-    private void showTree(){
-        tree.showTree();
-    }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdd;
     private javax.swing.JButton btCreate;

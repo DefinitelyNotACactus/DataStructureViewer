@@ -7,6 +7,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import structures.Stack;
 
 public class StackViewer extends JPanel {
@@ -90,10 +91,10 @@ public class StackViewer extends JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(statusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(optionsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
+                    .addComponent(optionsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
                     .addComponent(operationsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -171,22 +172,23 @@ public class StackViewer extends JPanel {
     private void listElements() {
         Container cont = new Container();
         Element element;        
-        for (int i = stack.getMaxSize(); i >= 1; i--) {
+        for (int i = stack.getSize(); i > 0; i--) {
             try {
                 element = new Element("" + stack.getValueAtPosition(i));
                 if(i == stack.getTop()){
                     element.setBorderColor(Color.BLUE);
+                    element.getLabel().setText("<html><center>" + stack.getValueAtPosition(i) + "<br>Top</center></html>");
                     element.setToolTipText("Top");
                 }
                 cont.add(element);
             } catch (Exception ex) {
-                element = new Element("");
+                //element = new Element("");
                 //element.setBackground(new Color(240, 240, 240));
                 //element.getLabel().setVisible(false);
-                cont.add(element);
+                //cont.add(element);
             }
         }
-        cont.setLayout(new GridLayout(0,1));
+        cont.setLayout(new BoxLayout(cont, BoxLayout.Y_AXIS));
         int sValue = scrollPane.getVerticalScrollBar().getValue();
         scrollPane.getViewport().setView(cont);
         scrollPane.getVerticalScrollBar().setValue(sValue);

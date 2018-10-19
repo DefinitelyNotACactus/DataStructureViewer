@@ -60,11 +60,11 @@ public class Viewer extends JFrame {
                 contentPanel.add(new LinkedListViewer());
                 break;
             case "Queue Viewer":
-                setBounds(getX(), getY(), 800, 470);
+                setBounds(getX(), getY(), 800, 320);
                 contentPanel.add(new QueueViewer());
                 break;
             case "Stack Viewer":
-                setBounds(getX(), getY(), 800, 470);
+                setBounds(getX(), getY(), 700, 470);
                 contentPanel.add(new StackViewer());
                 break;
             case "Tree Viewer":
